@@ -51,7 +51,7 @@ Reglas que evitan los fallos típicos:
 
 1. `npx tsc --noEmit` sin errores.
 2. `npm run dev` y abre la dirección que imprime. Comprueba: se ve la maqueta entera, cada zona se resalta al pasar el puntero, el clic abre su panel y las tarjetas apuntan a su zona.
-3. Cambia en el CSV una cifra y un `<zona>_estado` a `parada`, guarda: en ~2 s cambia la cifra, la tarjeta marca PARADA y esa zona se congela.
+3. Abre el panel **Datos**, cambia una cifra y un `<zona>_estado` a `parada`: cambia la cifra al momento, la tarjeta marca PARADA, esa zona se congela y `datos/planta.csv` queda guardado. (Editar el archivo a mano tiene el mismo efecto en ~2 s.)
 4. Busca claves usadas en el código que no estén en el CSV (`grep -o 'd\.\(num\|valor\|serie\|filas\)("[a-z_]*")' -r src/mundos/<negocio>`): cada una tiene que existir.
 
 ## 5. Entregar

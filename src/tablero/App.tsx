@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { Table2, X } from "lucide-react";
 import { color, fuente } from "../piezas/tema";
 import { RELOJ } from "../piezas/tiempo";
 import { ANCLAS, ESTADO, Escena, type PropsMundo, type Vista } from "./Escena";
 import { useDatos, type Datos, type Estado } from "./datos";
 import { Kpi, mono, tarjeta } from "./ui";
+import { PanelDatos } from "./PanelDatos";
 import { MUNDO } from "../mundo";
 
 type Id = string;
@@ -50,7 +51,16 @@ const ChipEstado: React.FC<{ estado: Estado }> = ({ estado }) => {
 };
 
 /** Tarjetas a los lados con una línea punteada hasta su estación. Se actualizan en cada fotograma sin pasar por React. */
-const Llamadas: React.FC<{ d: Datos; seleccion: Id | null; hover: Id | null; alto: number; ancho: number; alSeleccionar: (id: Id) => void; alHover: (id: Id | null) => void }> = ({ d, seleccion, hover, alto, ancho, alSeleccionar, alHover }) => {
+const Llamadas: React.FC<{
+  d: Datos;
+  seleccion: Id | null;
+  hover: Id | null;
+  alto: number;
+  ancho: number;
+  alSeleccionar: (id: Id) => void;
+  alHover: (id: Id | null) => void;
+  tapaIzq?: boolean;
+}> = ({ d, seleccion, hover, alto, ancho, alSeleccionar, alHover, tapaIzq = false }) => {
   const lineas = useRef<Partial<Record<Id, SVGLineElement | null>>>({});
   const puntos = useRef<Partial<Record<Id, SVGCircleElement | null>>>({});
   const tarjetas = useRef<Partial<Record<Id, HTMLDivElement | null>>>({});
@@ -107,7 +117,14 @@ const Llamadas: React.FC<{ d: Datos; seleccion: Id | null; hover: Id | null; alt
           const fuerte = seleccion === e.id || hover === e.id;
           return (
             <g key={e.id}>
-              <line ref={(el) => void (lineas.current[e.id] = el)} stroke={fuerte ? color.esmeralda : color.piedra} strokeWidth={fuerte ? 2 : 1.5} strokeDasharray="2 5" strokeLinecap="round" opacity={fuerte ? 1 : 0.55} />
+              <line
+                ref={(el) => void (lineas.current[e.id] = el)}
+                stroke={fuerte ? color.esmeralda : color.piedra}
+                strokeWidth={fuerte ? 2 : 1.5}
+                strokeDasharray="2 5"
+                strokeLinecap="round"
+                opacity={fuerte ? 1 : 0.55}
+              />
               <circle ref={(el) => void (puntos.current[e.id] = el)} r={fuerte ? 7 : 5} fill={color.esmeralda} stroke={color.blanco} strokeWidth={2.5} />
             </g>
           );
@@ -115,7 +132,7 @@ const Llamadas: React.FC<{ d: Datos; seleccion: Id | null; hover: Id | null; alt
       </svg>
       {(["izq", "der"] as const).map((lado) =>
         // Con el panel abierto, la columna derecha quedaría debajo: no se pinta.
-        (seleccion && lado === "der" ? [] : columna(lado)).map((e, i, arr) => {
+        ((seleccion && lado === "der") || (tapaIzq && lado === "izq") ? [] : columna(lado)).map((e, i, arr) => {
           const Icono = e.icono;
           const fuerte = seleccion === e.id || hover === e.id;
           return (
@@ -141,12 +158,32 @@ const Llamadas: React.FC<{ d: Datos; seleccion: Id | null; hover: Id | null; alt
                 <Icono size={13} color={color.esmeralda} strokeWidth={2.2} />
                 {e.nombre.toUpperCase()}
                 {d.estado(e.id) !== "en marcha" && (
-                  <span style={{ marginLeft: "auto", ...mono(10, ESTILO_ESTADO[d.estado(e.id)].tinta), background: ESTILO_ESTADO[d.estado(e.id)].fondo, borderRadius: 5, padding: "1px 6px" }}>
+                  <span
+                    style={{
+                      marginLeft: "auto",
+                      ...mono(10, ESTILO_ESTADO[d.estado(e.id)].tinta),
+                      background: ESTILO_ESTADO[d.estado(e.id)].fondo,
+                      borderRadius: 5,
+                      padding: "1px 6px",
+                    }}
+                  >
                     {ESTILO_ESTADO[d.estado(e.id)].marca} {d.estado(e.id).toUpperCase()}
                   </span>
                 )}
               </div>
-              <div style={{ fontFamily: fuente.titulos, fontWeight: 800, fontSize: 21, letterSpacing: -0.5, color: d.estado(e.id) === "parada" ? color.piedra : color.grafito, marginTop: 3, fontVariantNumeric: "tabular-nums" }}>{e.titular(d)}</div>
+              <div
+                style={{
+                  fontFamily: fuente.titulos,
+                  fontWeight: 800,
+                  fontSize: 21,
+                  letterSpacing: -0.5,
+                  color: d.estado(e.id) === "parada" ? color.piedra : color.grafito,
+                  marginTop: 3,
+                  fontVariantNumeric: "tabular-nums",
+                }}
+              >
+                {e.titular(d)}
+              </div>
             </div>
           );
         }),
@@ -163,7 +200,8 @@ const EnVivo: React.FC = () => (
 );
 
 export const App: React.FC = () => {
-  const { datos: d, leido, error, eventos, historia } = useDatos();
+  const { datos: d, filas, leido, error, eventos, historia, editar, guardado, descargar } = useDatos();
+  const [verDatos, setVerDatos] = useState(false);
   const ahora = useReloj();
   const lienzo = useTam();
   const base = Math.min(lienzo.w / 30, lienzo.h / 22);
@@ -187,6 +225,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     const tecla = (ev: KeyboardEvent) => {
+      if (ev.target instanceof HTMLElement && ev.target.closest("input, select, textarea")) return;
       if (ev.key === "Escape" || ev.key === "0") ir(null);
       const e = ESTACIONES.find((x) => x.tecla === ev.key);
       if (e) ir(e.id);
@@ -230,6 +269,22 @@ export const App: React.FC = () => {
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <button
+            onClick={() => setVerDatos((v) => !v)}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 7,
+              ...mono(12, verDatos ? color.blanco : color.grafito),
+              background: verDatos ? color.esmeralda : color.blanco,
+              border: `1px solid ${verDatos ? color.esmeralda : color.borde}`,
+              borderRadius: 10,
+              padding: "7px 12px",
+              cursor: "pointer",
+            }}
+          >
+            <Table2 size={14} /> Datos
+          </button>
           <EnVivo />
           <span style={mono(14, color.grafito)}>{ahora.toTimeString().slice(0, 8)}</span>
         </div>
@@ -239,7 +294,16 @@ export const App: React.FC = () => {
         {d && MUNDO.kpis(d).map((k) => <Kpi key={k.titulo} {...k} />)}
       </section>
 
-      <main style={{ position: "relative", margin: "0 24px 24px", borderRadius: 20, overflow: "hidden", border: `1px solid ${color.borde}`, background: color.niebla }}>
+      <main
+        style={{
+          position: "relative",
+          margin: "0 24px 24px",
+          borderRadius: 20,
+          overflow: "hidden",
+          border: `1px solid ${color.borde}`,
+          background: color.niebla,
+        }}
+      >
         <div
           ref={lienzo.ref}
           style={{ position: "absolute", inset: 0, touchAction: "none" }}
@@ -255,16 +319,27 @@ export const App: React.FC = () => {
           <Escena {...props} />
         </div>
 
-        {d && lienzo.w > 900 && <Llamadas d={d} seleccion={seleccion} hover={hover} alto={lienzo.h} ancho={lienzo.w} alSeleccionar={ir} alHover={setHover} />}
+        {d && lienzo.w > 900 && (
+          <Llamadas d={d} seleccion={seleccion} hover={hover} alto={lienzo.h} ancho={lienzo.w} alSeleccionar={ir} alHover={setHover} tapaIzq={verDatos} />
+        )}
 
-        <nav style={{ position: "absolute", left: 16, bottom: 16, display: "flex", flexWrap: "wrap", gap: 6, maxWidth: "calc(100% - 32px)" }}>
+        {verDatos && d && <PanelDatos filas={filas} editar={editar} guardado={guardado} alDescargar={descargar} alCerrar={() => setVerDatos(false)} />}
+
+        <nav style={{ position: "absolute", left: verDatos ? 432 : 16, bottom: 16, display: "flex", flexWrap: "wrap", gap: 6, maxWidth: "calc(100% - 32px)" }}>
           {[{ id: null, nombre: "General", tecla: "0" }, ...ESTACIONES].map((e) => {
             const activo = seleccion === e.id;
             return (
               <button
                 key={e.nombre}
                 onClick={() => ir(e.id)}
-                style={{ ...mono(12, activo ? color.blanco : color.grafito), background: activo ? color.esmeralda : color.blanco, border: `1px solid ${activo ? color.esmeralda : color.borde}`, borderRadius: 10, padding: "8px 12px", cursor: "pointer" }}
+                style={{
+                  ...mono(12, activo ? color.blanco : color.grafito),
+                  background: activo ? color.esmeralda : color.blanco,
+                  border: `1px solid ${activo ? color.esmeralda : color.borde}`,
+                  borderRadius: 10,
+                  padding: "8px 12px",
+                  cursor: "pointer",
+                }}
               >
                 <span style={{ opacity: 0.6, marginRight: 6 }}>{e.tecla}</span>
                 {e.nombre}
@@ -280,7 +355,9 @@ export const App: React.FC = () => {
               <div key={ev.clave} style={{ display: "flex", gap: 10, padding: "6px 0", borderTop: `1px solid ${color.niebla}`, alignItems: "baseline" }}>
                 <span style={mono(11)}>{ev.hora}</span>
                 <span style={{ fontFamily: fuente.titulos, fontWeight: 700, fontSize: 13, color: color.grafito, lineHeight: 1.3 }}>
-                  {ev.atencion && <span style={{ ...mono(11, color.blanco), background: color.grafito, borderRadius: 4, padding: "0 5px", marginRight: 6 }}>!</span>}
+                  {ev.atencion && (
+                    <span style={{ ...mono(11, color.blanco), background: color.grafito, borderRadius: 4, padding: "0 5px", marginRight: 6 }}>!</span>
+                  )}
                   {ev.texto}
                 </span>
               </div>
@@ -288,10 +365,38 @@ export const App: React.FC = () => {
           </div>
         )}
 
-        <div style={{ position: "absolute", left: "50%", top: 14, translate: "-50% 0", ...mono(11), background: color.blanco, border: `1px solid ${color.borde}`, borderRadius: 999, padding: "6px 14px", whiteSpace: "nowrap", pointerEvents: "none" }}>Arrastra para girar · rueda para acercar · clic en una estación</div>
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: 14,
+            translate: "-50% 0",
+            ...mono(11),
+            background: color.blanco,
+            border: `1px solid ${color.borde}`,
+            borderRadius: 999,
+            padding: "6px 14px",
+            whiteSpace: "nowrap",
+            pointerEvents: "none",
+          }}
+        >
+          Arrastra para girar · rueda para acercar · clic en una estación
+        </div>
 
         {sel && Icono && (
-          <aside style={{ ...tarjeta, position: "absolute", top: 16, right: 16, bottom: 16, width: Math.min(360, lienzo.w - 32), padding: 22, overflowY: "auto", boxShadow: "0 18px 50px rgba(28,30,34,0.12)" }}>
+          <aside
+            style={{
+              ...tarjeta,
+              position: "absolute",
+              top: 16,
+              right: 16,
+              bottom: 16,
+              width: Math.min(360, lienzo.w - 32),
+              padding: 22,
+              overflowY: "auto",
+              boxShadow: "0 18px 50px rgba(28,30,34,0.12)",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <span style={{ width: 40, height: 40, borderRadius: 12, background: color.textoSobreEsmeralda, display: "grid", placeItems: "center" }}>
@@ -302,7 +407,20 @@ export const App: React.FC = () => {
                   <EnVivo />
                 </div>
               </div>
-              <button aria-label="Cerrar" onClick={() => ir(null)} style={{ border: "none", background: color.niebla, borderRadius: 10, width: 34, height: 34, display: "grid", placeItems: "center", cursor: "pointer" }}>
+              <button
+                aria-label="Cerrar"
+                onClick={() => ir(null)}
+                style={{
+                  border: "none",
+                  background: color.niebla,
+                  borderRadius: 10,
+                  width: 34,
+                  height: 34,
+                  display: "grid",
+                  placeItems: "center",
+                  cursor: "pointer",
+                }}
+              >
                 <X size={16} color={color.grafito} />
               </button>
             </div>

@@ -20,9 +20,10 @@ npm run dev
 Abre la dirección que imprime (normalmente `http://localhost:5173`). Luego:
 
 - **Arrastra** para girar, **rueda** para acercar, **clic** en una zona para ver su panel. Teclas `1`–`6` para saltar entre zonas y `Esc` para volver.
-- Abre `datos/planta.csv`, cambia `tostado_estado` a `parada` y guarda: la tostadora se detiene y el registro lo anota.
+- Pulsa **Datos** (arriba a la derecha): verás todas las filas del CSV. Cambia una cifra o pon el tostado en `parada` y el tablero responde al momento. El cambio se guarda en `datos/planta.csv`.
+- O edita `datos/planta.csv` en Excel, Numbers o VS Code y guarda: en un par de segundos el tablero lo recoge.
 
-![Panel de la zona de tostado con su curva y la tostadora parada](docs/captura-parada.png)
+![Panel Datos abierto: la temperatura cambiada a 188 °C y el tostado en parada, con el registro de actividad anotándolo](docs/captura-datos.png)
 
 ## Haz el tuyo
 
@@ -72,7 +73,9 @@ Una fila por dato. Las claves empiezan por su zona. Las series van con punto y c
 
 Hecho con [Three.js](https://threejs.org/) y [React Three Fiber](https://r3f.docs.pmnd.rs/), servido con [Vite](https://vite.dev/). Todo se dibuja con código, sin modelos 3D.
 
-`npm run build` deja una versión estática en `dist/` (con una copia del CSV en ese momento; para datos en vivo usa `npm run dev`).
+`npm run build` deja una versión estática en `dist/` con una copia del CSV en ese momento. Ahí el panel **Datos** funciona, pero sin servidor no puede escribir el archivo: los cambios se quedan en la pestaña y el botón **CSV** te los descarga. Para guardar en el archivo, usa `npm run dev`.
+
+El servidor de desarrollo solo acepta escribir `datos/planta.csv`, y solo existe en tu equipo mientras corre `npm run dev`.
 
 ## Licencia
 
