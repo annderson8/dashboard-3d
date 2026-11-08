@@ -26,17 +26,17 @@ Criterio completo en `referencias/criterio.md`.
 
 ## 2. El archivo
 
-1. Copia el ejemplo para no perderlo: `datos/planta.csv` → `datos/ejemplos/<lo-que-fuera>.csv` (si no está ya).
+1. Los ejemplos ya tienen copia en `datos/ejemplos/` (`tostadora.csv`, `tienda.csv`). Si `datos/planta.csv` tiene datos del usuario que no estén ahí, cópialos antes de sobrescribir.
 2. Escribe en `datos/planta.csv` los datos del negocio con el formato de `referencias/csv.md`:
    columnas `clave,valor,unidad,nota`, claves con el prefijo de su zona (`reparto_pedidos_en_ruta`) y una fila `<zona>_estado` por zona.
 3. Si no tienen números reales todavía, pon valores plausibles y dilo: "son de ejemplo, cámbialos por los tuyos".
 
 ## 3. El mundo
 
-1. Crea `src/mundos/<negocio>/` copiando la estructura de `src/mundos/tostadora/`:
+1. Crea `src/mundos/<negocio>/` copiando la estructura de un ejemplo: `src/mundos/tienda/` (servicios, comercio, logística; usa solo piezas del kit) o `src/mundos/tostadora/` (fabricación, con máquinas a medida):
    - `index.tsx` exporta un `MundoTablero` (tipo en `src/mundos/tipos.ts`): título, zonas, indicadores, historial, nombres y `Planta`.
    - Las piezas 3D de cada zona en archivos aparte (como `maquinas.tsx`).
-2. Construye cada zona con las piezas de `src/piezas/` (catálogo en `referencias/piezas.md`): cajas redondeadas, cilindros, esferas, bandas, partículas.
+2. Construye cada zona con las piezas de `src/piezas/` (catálogo en `referencias/piezas.md`): formas, bandas, partículas y las comunes (personas, árboles, furgonetas, cajas que circulan).
    Nada de modelos externos. Que cada zona **haga algo**: una banda que corre, una máquina que gira, un vehículo que llega.
 3. Coloca las zonas siguiendo `referencias/mundo.md` (ejes, tamaños, cámara). Para cada zona define su caja de clic (`zona`) y el punto de su tarjeta (`ancla`).
 4. Cambia `src/mundo.ts` para que exporte el mundo nuevo.

@@ -21,6 +21,14 @@ Material propio: `mat(color, rugosidad, { emisivo, brillo })`.
 - `tramo(t, [desde, hasta])` → 0 → 1 con curva suave entre dos segundos.
 - `hash(i, semilla)` → número 0–1 fijo para la pieza `i` (variedad sin aleatoriedad).
 
+## Comunes (`comunes.tsx`): sirven para casi cualquier negocio
+| Pieza | Props principales | Para qué |
+| --- | --- | --- |
+| `<Persona p c giro />` | `c` color de la ropa | Gente trabajando o esperando |
+| `<Arbol p={[x, z]} e tono />` | `e` escala | Decorar los bordes y huecos |
+| `<Furgoneta p giro acento />` | Mírala hacia `+z`; muévela cambiando `p` con `useT()` | Reparto, llegadas, salidas |
+| `<Flujo a b n T tam color />` | `n` a la vez, `T` segundos de recorrido | Cajas, sobres o paquetes que circulan; ponlo encima de una `<Banda>` con los mismos `a` y `b` |
+
 ## Partículas (`granos.tsx`)
 Tienen forma de grano de café; para otro negocio copia la pieza y cambia la geometría (cajas, paquetes, gotas).
 | Pieza | Para qué |
@@ -31,6 +39,7 @@ Tienen forma de grano de café; para otro negocio copia la pieza y cambia la geo
 | `<Disco …/>` y `<Cascada …/>` | Material girando en una bandeja o cayendo dentro de un tambor |
 
 ## Ejemplos completos
+- `src/mundos/tienda/`: tienda online (almacén con estanterías, preparación, reparto y devoluciones) hecha solo con piezas del kit. El mejor punto de partida para un negocio que no fabrica nada.
 - `src/mundos/tostadora/maquinas.tsx`: tostadora con tambor visible, bandeja de enfriado, empacadora.
 - `src/mundos/tostadora/bolsas.tsx`: línea de bolsas por estaciones y un brazo robot con cinemática inversa.
 - `src/mundos/tostadora/entorno.tsx`: losa, caminos, árboles, coches y almacén.

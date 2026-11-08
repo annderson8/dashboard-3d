@@ -2,7 +2,7 @@
 
 **Tu negocio como una maqueta 3D en la que haces clic en cada zona y ves sus números.** Los números salen de un CSV: lo editas, guardas y el tablero cambia solo. Si pones una zona en "parada", su máquina se detiene en el 3D.
 
-Viene con un ejemplo completo: una tostadora de café, del camión que trae el café verde hasta el almacén.
+Viene con dos ejemplos: una tostadora de café, del camión que trae el café verde hasta el almacén, y una tienda online con almacén, preparación, reparto y devoluciones.
 
 ![Tablero 3D de una tostadora de café con sus tarjetas y el registro de actividad](docs/captura-general.png)
 
@@ -36,9 +36,15 @@ npx skills add annderson8/tablero-3d
 
 Después, dentro de la carpeta del repo, pídele a Claude Code: *"haz el tablero 3D de mi negocio"*.
 
+### Ver la tienda online
+
+![Tablero 3D de una tienda online con almacén, preparación, reparto y devoluciones](docs/captura-tienda.png)
+
+En `src/mundo.ts` cambia `tostadora` por `tienda` y copia `datos/ejemplos/tienda.csv` a `datos/planta.csv`.
+
 ### A mano
 
-1. Copia `src/mundos/tostadora/` a `src/mundos/<tu-negocio>/`.
+1. Copia `src/mundos/tienda/` (o `tostadora/`) a `src/mundos/<tu-negocio>/`.
 2. Cambia zonas, indicadores y piezas en su `index.tsx` (el tipo `MundoTablero` en `src/mundos/tipos.ts` explica cada campo).
 3. Pon tus datos en `datos/planta.csv` (formato en `skills/tablero-3d/referencias/csv.md`).
 4. En `src/mundo.ts`, exporta tu mundo.
@@ -52,15 +58,15 @@ tostado_temperatura,203,°C,Temperatura del tambor
 almacen_stock,1340,bolsas,"Huila, Colombia"
 ```
 
-Una fila por dato. Las claves empiezan por su zona. Las series van con punto y coma (`200;121;98;117`). Las cifras del ejemplo son inventadas; la copia original está en `datos/ejemplos/tostadora.csv`.
+Una fila por dato. Las claves empiezan por su zona. Las series van con punto y coma (`200;121;98;117`). Las cifras de los ejemplos son inventadas; las copias originales están en `datos/ejemplos/`.
 
 ## Cómo está hecho
 
 | Carpeta | Qué hay |
 | --- | --- |
-| `src/piezas/` | Formas, partículas, colores y el reloj del mundo. Lo reutilizable |
+| `src/piezas/` | Formas, personas, árboles, furgonetas, cajas que circulan, colores y el reloj del mundo. Lo reutilizable |
 | `src/tablero/` | Cámara, tarjetas flotantes, paneles, gráficas y lectura del CSV |
-| `src/mundos/` | Cada negocio. `tostadora/` es el ejemplo |
+| `src/mundos/` | Cada negocio. `tostadora/` y `tienda/` son los ejemplos |
 | `skills/tablero-3d/` | La skill para Claude Code y sus referencias |
 | `datos/` | El CSV que lee el tablero |
 
@@ -78,4 +84,4 @@ Hecho por [Annder Rey](https://annderrey.com) · [@annderrey](https://instagram.
 
 ### English
 
-**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. Includes a full coffee-roastery example and a Claude Code skill that interviews you about your business and builds your own world. `npm install && npm run dev` to try it. MIT licensed. The code and docs are in Spanish.
+**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. Includes two examples (a coffee roastery and an online shop) and a Claude Code skill that interviews you about your business and builds your own world. `npm install && npm run dev` to try it. MIT licensed. The code and docs are in Spanish.
