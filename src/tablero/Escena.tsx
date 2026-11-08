@@ -17,8 +17,8 @@ export type PropsMundo = {
 };
 
 /**
- * Lo que la app le pide a la escena (vista, selección, puntero). Va por aquí y no por las props del reproductor:
- * esas llegan con retraso, y la cámara tardaba en reaccionar. La escena lo lee en cada fotograma.
+ * Lo que la app le pide a la escena (vista, selección, puntero, zonas paradas). Se escribe fuera de React y la escena
+ * lo lee en cada fotograma: así la cámara reacciona en el mismo instante, sin esperar a un nuevo render.
  */
 export const ESTADO: { vista: Vista | null; seleccion: Id | null; hover: Id | null; paradas: Record<Id, number | undefined> } = {
   vista: null,

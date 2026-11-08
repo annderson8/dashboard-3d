@@ -1,4 +1,4 @@
-// Curvas de animación (las mismas que usa Remotion, para que el movimiento se vea igual).
+// Curvas de animación: cómo acelera y frena un movimiento entre 0 y 1.
 export type Curva = (x: number) => number;
 export const cubica: Curva = (x) => x * x * x;
 export const cuadratica: Curva = (x) => x * x;
