@@ -11,7 +11,7 @@ Viene con un ejemplo completo: una tostadora de café, del camión que trae el c
 Necesitas [Node.js](https://nodejs.org/) 20 o más reciente.
 
 ```bash
-git clone https://github.com/USUARIO/tablero-3d.git
+git clone https://github.com/annderson8/tablero-3d.git
 cd tablero-3d
 npm install
 npm run dev
@@ -31,7 +31,7 @@ Abre la dirección que imprime (normalmente `http://localhost:5173`). Luego:
 El repo trae una skill que te entrevista sobre tu negocio, elige contigo qué números mirar, escribe tu CSV y construye tu mundo con las piezas del kit.
 
 ```bash
-npx skills add USUARIO/tablero-3d
+npx skills add annderson8/tablero-3d
 ```
 
 Después, dentro de la carpeta del repo, pídele a Claude Code: *"haz el tablero 3D de mi negocio"*.
