@@ -1,0 +1,34 @@
+clave,valor,unidad,nota
+cafe_tostado_hoy,500,kg,Café tostado en el día
+meta_cafe_tostado,1600,kg,Meta del día
+bolsas_empacadas,3844,bolsas,Bolsas de 250 g empacadas hoy
+eficiencia_linea,86.2,%,OEE del turno
+tarimas_listas,6,tarimas,Tarimas completas hoy
+proximo_envio,16:30,,Hora del próximo camión
+recepcion_estado,en marcha,,en marcha | atención | parada
+recepcion_humedad,11.2,%,Humedad del café verde
+recepcion_foso,1240,kg,Café verde esperando en el foso
+recepcion_lotes_hoy,3,lotes,Lotes recibidos hoy
+recepcion_origen,"Huila, Colombia",,Último origen recibido
+recepcion_kg_por_hora,620;0;840;410;0;760;980;1240,kg,Kilos recibidos por hora (de 03:00 a 10:00)
+tostado_estado,en marcha,,en marcha | atención | parada
+tostado_lote,27,,Lote en el tambor
+tostado_temperatura,203,°C,Temperatura del tambor
+tostado_minuto,9.5,min,Minuto del lote (de 12)
+tostado_perdida_peso,15,%,Pérdida de peso esperada
+tostado_curva,200;121;98;117;136;151;164;175;184;192;198;203;206,°C,Curva del lote: una lectura por minuto
+enfriado_estado,en marcha,,en marcha | atención | parada
+enfriado_temperatura,41,°C,Temperatura del grano
+enfriado_objetivo,35,°C,Temperatura objetivo
+empaque_estado,en marcha,,en marcha | atención | parada
+empaque_bolsas_minuto,46,bolsas/min,Ritmo de la empacadora
+empaque_peso_medio,250.3,g,Peso medio por bolsa
+empaque_rechazos,0.8,%,Bolsas rechazadas
+paletizado_estado,en marcha,,en marcha | atención | parada
+paletizado_en_tarima,7,bolsas,Bolsas en la tarima actual (de 18)
+almacen_estado,atención,,en marcha | atención | parada
+almacen_cobertura,9,días,Días de venta cubiertos
+almacen_stock,1340,bolsas,"Huila, Colombia"
+almacen_stock,980,bolsas,"Cerrado, Brasil"
+almacen_stock,520,bolsas,"Sidamo, Etiopía"
+almacen_stock,280,bolsas,"Tarrazú, Costa Rica"

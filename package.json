@@ -1,0 +1,28 @@
+{
+  "name": "tablero-3d",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tu negocio como un tablero 3D interactivo que lee sus números de un CSV. Three.js + React Three Fiber, con la tostadora de café de ejemplo.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "lucide-react": "1.49.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.2.3",
+    "@types/three": "0.187.0",
+    "@vitejs/plugin-react": "5.1.2",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

@@ -1,0 +1,31 @@
+# Formato de datos/planta.csv
+
+Lo abre Excel, Numbers o Google Sheets (Archivo → Descargar → CSV). El tablero lo relee cada 1,5 s.
+
+```
+clave,valor,unidad,nota
+tostado_estado,en marcha,,en marcha | atención | parada
+tostado_temperatura,203,°C,Temperatura del tambor
+tostado_curva,200;121;98;117;136;151,°C,Una lectura por minuto
+almacen_stock,1340,bolsas,"Huila, Colombia"
+almacen_stock,980,bolsas,"Cerrado, Brasil"
+```
+
+| Columna | Qué va |
+| --- | --- |
+| `clave` | En minúsculas con guiones bajos. Empieza por el `id` de su zona (`tostado_…`). Los indicadores generales pueden no llevar prefijo |
+| `valor` | Número (punto o coma decimal), texto, o una serie separada por punto y coma |
+| `unidad` | Para leerlo (°C, kg, bolsas/min). El tablero no la usa para calcular |
+| `nota` | Explicación para quien edita el archivo. En claves repetidas, el nombre de cada fila (p. ej. el origen del stock) |
+
+## Lo que lee el código
+- `d.num("clave")` → número (0 si no existe).
+- `d.valor("clave")` → texto.
+- `d.serie("clave")` → lista de números de una celda con `;`.
+- `d.filas("clave")` → todas las filas de una clave repetida (con su `nota`).
+- `d.estado("zona")` → "en marcha" | "atención" | "parada", leído de `<zona>_estado`.
+
+## Obligatorio
+- Una fila `<zona>_estado` por cada zona del mundo.
+- Toda clave que use el código existe en el archivo.
+- Valores entre comillas si llevan comas (`"Huila, Colombia"`).
