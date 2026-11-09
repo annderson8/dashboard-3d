@@ -7,8 +7,14 @@ export type Estado = "en marcha" | "atención" | "parada";
 
 export type Fila = { clave: string; valor: string; unidad: string; nota: string };
 
+export type Separador = "," | ";";
+
+/** Excel en español guarda con punto y coma: lo decide la cabecera, no el contenido (las series también llevan `;`). */
+export const separadorDe = (texto: string): Separador => (/^﻿?\s*"?clave"?\s*;/i.test(texto) ? ";" : ",");
+
 /** CSV sencillo con comillas: lo que exportan Excel, Numbers o Google Sheets. */
 export const leerCsv = (texto: string): Fila[] => {
+  const sep = separadorDe(texto);
   const filas: string[][] = [];
   let campo = "";
   let fila: string[] = [];
@@ -22,7 +28,7 @@ export const leerCsv = (texto: string): Fila[] => {
       } else if (c === '"') comillas = false;
       else campo += c;
     } else if (c === '"') comillas = true;
-    else if (c === ",") {
+    else if (c === sep) {
       fila.push(campo);
       campo = "";
     } else if (c === "\n" || c === "\r") {
@@ -34,7 +40,7 @@ export const leerCsv = (texto: string): Fila[] => {
     } else campo += c;
   }
   if (campo || fila.length) filas.push([...fila, campo]);
-  const [cabecera, ...resto] = filas.filter((f) => f.some((x) => x.trim()));
+  const [cabecera = [], ...resto] = filas.filter((f) => f.some((x) => x.trim()));
   const col = (n: string) => cabecera.map((h) => h.trim().toLowerCase()).indexOf(n);
   const [k, v, u, no] = ["clave", "valor", "unidad", "nota"].map(col);
   if (k < 0 || v < 0) throw new Error("El CSV necesita las columnas clave y valor");
@@ -56,15 +62,34 @@ export type Datos = {
   estado: (id: string) => Estado;
 };
 
+/** Acepta 1340, 1340.5, 1340,5 y 1.340,5. Con los dos signos, el último es el decimal. */
+const aNumero = (texto: string) => {
+  const t = texto.trim().replace(/\s/g, "");
+  if (!t) return NaN;
+  const coma = t.lastIndexOf(",");
+  const punto = t.lastIndexOf(".");
+  if (coma >= 0 && punto >= 0) return Number(coma > punto ? t.replace(/\./g, "").replace(",", ".") : t.replace(/,/g, ""));
+  return Number(t.replace(",", "."));
+};
+
+const avisadas = new Set<string>();
+
 export const crear = (filas: Fila[]): Datos => {
-  const primera = (c: string) => filas.find((f) => f.clave === c);
+  const primera = (c: string) => {
+    const f = filas.find((x) => x.clave === c);
+    if (!f && filas.length && !avisadas.has(c)) {
+      avisadas.add(c);
+      console.warn(`[tablero] La clave "${c}" no está en datos/planta.csv: se muestra vacía o como 0.`);
+    }
+    return f;
+  };
   return {
     valor: (c) => primera(c)?.valor ?? "",
-    num: (c) => Number((primera(c)?.valor ?? "").replace(",", ".")) || 0,
+    num: (c) => aNumero(primera(c)?.valor ?? "") || 0,
     serie: (c) =>
       (primera(c)?.valor ?? "")
         .split(";")
-        .map((x) => Number(x.trim().replace(",", ".")))
+        .map(aNumero)
         .filter((x) => !Number.isNaN(x)),
     filas: (c) => filas.filter((f) => f.clave === c),
     estado: (id) => {
@@ -78,9 +103,9 @@ export type Evento = { clave: number; hora: string; texto: string; atencion: boo
 const hora = () => new Date().toTimeString().slice(0, 8);
 
 /** Vuelve a escribir el CSV, con comillas donde hacen falta. */
-export const escribirCsv = (filas: Fila[]) => {
-  const campo = (v: string) => (/[",\n\r]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
-  return ["clave,valor,unidad,nota", ...filas.map((f) => [f.clave, f.valor, f.unidad, f.nota].map(campo).join(","))].join("\n") + "\n";
+export const escribirCsv = (filas: Fila[], sep: Separador = ",") => {
+  const campo = (v: string) => (/["\n\r]/.test(v) || v.includes(sep) ? `"${v.replace(/"/g, '""')}"` : v);
+  return [["clave", "valor", "unidad", "nota"].join(sep), ...filas.map((f) => [f.clave, f.valor, f.unidad, f.nota].map(campo).join(sep))].join("\n") + "\n";
 };
 
 /** Qué cambió entre dos versiones del archivo, como eventos para el registro. */
@@ -133,6 +158,7 @@ export const useDatos = (cada = 1500) => {
   const actuales = useRef<Fila[]>([]);
   const ocupado = useRef(false); // hay cambios sin guardar: la lectura periódica no los pisa
   const local = useRef(false);
+  const separador = useRef<Separador>(","); // se guarda como vino, para que Excel lo siga abriendo por columnas
   const espera = useRef<number | undefined>(undefined);
   const n = useRef(0);
 
@@ -165,8 +191,10 @@ export const useDatos = (cada = 1500) => {
       try {
         const r = await fetch(`./datos.csv?t=${Date.now()}`, { cache: "no-store" });
         if (!r.ok) throw new Error(`No encuentro datos.csv (${r.status})`);
-        const filas = leerCsv(await r.text());
+        const texto = await r.text();
+        const filas = leerCsv(texto);
         if (!vivo || ocupado.current) return;
+        separador.current = separadorDe(texto);
         anotar(filas);
         mostrar(filas, true);
       } catch (e) {
@@ -190,7 +218,7 @@ export const useDatos = (cada = 1500) => {
       return;
     }
     try {
-      const r = await fetch("./datos.csv", { method: "POST", headers: { "Content-Type": "text/csv" }, body: escribirCsv(filas) });
+      const r = await fetch("./datos.csv", { method: "POST", headers: { "Content-Type": "text/csv" }, body: escribirCsv(filas, separador.current) });
       if (r.status === 400) {
         const error = await r.text();
         setGuardado((g) => ({ ...g, pendiente: false, error }));
@@ -221,7 +249,7 @@ export const useDatos = (cada = 1500) => {
   );
 
   const descargar = useCallback(() => {
-    const url = URL.createObjectURL(new Blob([escribirCsv(actuales.current)], { type: "text/csv;charset=utf-8" }));
+    const url = URL.createObjectURL(new Blob([escribirCsv(actuales.current, separador.current)], { type: "text/csv;charset=utf-8" }));
     const a = Object.assign(document.createElement("a"), { href: url, download: "planta.csv" });
     a.click();
     URL.revokeObjectURL(url);

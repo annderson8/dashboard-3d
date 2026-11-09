@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "validar": "node scripts/validar.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "9.8.2",

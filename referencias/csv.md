@@ -18,6 +18,8 @@ almacen_stock,980,bolsas,"Cerrado, Brasil"
 | `unidad` | Para leerlo (°C, kg, bolsas/min). El tablero no la usa para calcular |
 | `nota` | Explicación para quien edita el archivo. En claves repetidas, el nombre de cada fila (p. ej. el origen del stock) |
 
+También acepta `;` como separador de columnas (el de Excel en español) si la cabecera lo usa: `clave;valor;unidad;nota`. El panel Datos guarda con el mismo separador que encontró.
+
 ## Lo que lee el código
 - `d.num("clave")` → número (0 si no existe).
 - `d.valor("clave")` → texto.
@@ -27,5 +29,5 @@ almacen_stock,980,bolsas,"Cerrado, Brasil"
 
 ## Obligatorio
 - Una fila `<zona>_estado` por cada zona del mundo.
-- Toda clave que use el código existe en el archivo.
+- Toda clave que use el código existe en el archivo (`npm run validar` lo comprueba).
 - Valores entre comillas si llevan comas (`"Huila, Colombia"`).

@@ -13,6 +13,13 @@ const datos = (archivo = "datos/planta.csv"): Plugin => ({
     server.middlewares.use("/datos.csv", (req, res) => {
       const ruta = path.resolve(archivo);
       if (req.method === "POST") {
+        // Solo la propia página puede guardar: otra web abierta en el navegador no puede tocar el archivo.
+        const origen = req.headers.origin;
+        if (origen && origen.replace(/^https?:\/\//, "") !== req.headers.host) {
+          res.statusCode = 403;
+          res.end("Solo el propio tablero puede guardar este archivo");
+          return;
+        }
         let cuerpo = "";
         let demasiado = false;
         req.setEncoding("utf8");
@@ -21,7 +28,7 @@ const datos = (archivo = "datos/planta.csv"): Plugin => ({
           if (cuerpo.length > 1_000_000) demasiado = true;
         });
         req.on("end", () => {
-          if (demasiado || !/^\uFEFF?clave,valor/i.test(cuerpo)) {
+          if (demasiado || !/^\uFEFF?clave[,;]valor/i.test(cuerpo)) {
             res.statusCode = 400;
             res.end("El CSV tiene que empezar por las columnas clave,valor");
             return;

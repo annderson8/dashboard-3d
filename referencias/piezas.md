@@ -39,7 +39,8 @@ Tienen forma de grano de café; para otro negocio copia la pieza y cambia la geo
 | `<Disco …/>` y `<Cascada …/>` | Material girando en una bandeja o cayendo dentro de un tambor |
 
 ## Ejemplos completos
-- `src/mundos/tienda/`: tienda online (almacén con estanterías, preparación, reparto y devoluciones) hecha solo con piezas del kit. El mejor punto de partida para un negocio que no fabrica nada.
-- `src/mundos/tostadora/maquinas.tsx`: tostadora con tambor visible, bandeja de enfriado, empacadora.
-- `src/mundos/tostadora/bolsas.tsx`: línea de bolsas por estaciones y un brazo robot con cinemática inversa.
-- `src/mundos/tostadora/entorno.tsx`: losa, caminos, árboles, coches y almacén.
+En `ejemplos/` de la skill:
+- `tienda/mundo/`: tienda online (almacén con estanterías, preparación, reparto y devoluciones) hecha solo con piezas del kit. El mejor punto de partida para un negocio que no fabrica nada.
+- `tostadora/mundo/maquinas.tsx`: tostadora con tambor visible, bandeja de enfriado, empacadora.
+- `tostadora/mundo/bolsas.tsx`: línea de bolsas por estaciones y un brazo robot con cinemática inversa.
+- `tostadora/mundo/entorno.tsx`: losa, caminos, árboles, coches y almacén.

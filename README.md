@@ -2,53 +2,46 @@
 
 **Tu negocio como una maqueta 3D en la que haces clic en cada zona y ves sus números.** Los números salen de un CSV: lo editas, guardas y el tablero cambia solo. Si pones una zona en "parada", su máquina se detiene en el 3D.
 
-Viene con dos ejemplos: una tostadora de café, del camión que trae el café verde hasta el almacén, y una tienda online con almacén, preparación, reparto y devoluciones.
+Es una skill para Claude Code: le pasas tus datos y te construye la maqueta. Trae dos ejemplos, una tostadora de café y una tienda online.
 
 ![Tablero 3D de una tostadora de café con sus tarjetas y el registro de actividad](docs/captura-general.png)
 
-## Pruébalo en dos minutos
+## Empieza
 
-Necesitas [Node.js](https://nodejs.org/) 20 o más reciente.
+Necesitas [Node.js](https://nodejs.org/) 20 o más reciente y [Claude Code](https://claude.com/claude-code).
 
 ```bash
-git clone https://github.com/annderson8/tablero-3d.git
-cd tablero-3d
-npm install
-npm run dev
+npx skills add annderson8/tablero-3d -g -a claude-code
 ```
 
-Abre la dirección que imprime (normalmente `http://localhost:5173`). Luego:
+Después, en Claude Code, desde la carpeta donde quieras crearlo:
 
-- **Arrastra** para girar, **rueda** para acercar, **clic** en una zona para ver su panel. Teclas `1`–`6` para saltar entre zonas y `Esc` para volver.
-- Pulsa **Datos** (arriba a la derecha): verás todas las filas del CSV. Cambia una cifra o pon el tostado en `parada` y el tablero responde al momento. El cambio se guarda en `datos/planta.csv`.
+```text
+/tablero-3d ventas.xlsx
+```
+
+También vale un CSV, datos pegados en el chat o solo una descripción de tu negocio. Claude te pregunta lo que no pueda saber por tus datos, elige contigo qué números mirar, crea un proyecto nuevo y lo deja funcionando.
+
+## Cómo se usa el tablero
+
+- **Arrastra** para girar, **rueda** para acercar, **clic** en una zona para ver su panel. Teclas numéricas para saltar entre zonas y `Esc` para volver.
+- Pulsa **Datos** (arriba a la derecha): verás todas las filas del CSV. Cambia una cifra o pon una zona en `parada` y el tablero responde al momento. El cambio se guarda en `datos/planta.csv`.
 - O edita `datos/planta.csv` en Excel, Numbers o VS Code y guarda: en un par de segundos el tablero lo recoge.
 
 ![Panel Datos abierto: la temperatura cambiada a 188 °C y el tostado en parada, con el registro de actividad anotándolo](docs/captura-datos.png)
 
-## Haz el tuyo
-
-### Con Claude Code (recomendado)
-
-El repo trae una skill que te entrevista sobre tu negocio, elige contigo qué números mirar, escribe tu CSV y construye tu mundo con las piezas del kit.
-
-```bash
-npx skills add annderson8/tablero-3d
-```
-
-Después, dentro de la carpeta del repo, pídele a Claude Code: *"haz el tablero 3D de mi negocio"*.
-
-### Ver la tienda online
+## Probar un ejemplo sin Claude
 
 ![Tablero 3D de una tienda online con almacén, preparación, reparto y devoluciones](docs/captura-tienda.png)
 
-En `src/mundo.ts` cambia `tostadora` por `tienda` y copia `datos/ejemplos/tienda.csv` a `datos/planta.csv`.
+```bash
+git clone https://github.com/annderson8/tablero-3d.git
+node tablero-3d/scripts/crear.mjs mi-tablero --ejemplo tienda   # o tostadora
+cd mi-tablero
+npm run dev
+```
 
-### A mano
-
-1. Copia `src/mundos/tienda/` (o `tostadora/`) a `src/mundos/<tu-negocio>/`.
-2. Cambia zonas, indicadores y piezas en su `index.tsx` (el tipo `MundoTablero` en `src/mundos/tipos.ts` explica cada campo).
-3. Pon tus datos en `datos/planta.csv` (formato en `skills/tablero-3d/referencias/csv.md`).
-4. En `src/mundo.ts`, exporta tu mundo.
+Para adaptarlo a mano, sigue los pasos 3 y 4 de [`SKILL.md`](SKILL.md).
 
 ## El archivo de datos
 
@@ -59,17 +52,16 @@ tostado_temperatura,203,°C,Temperatura del tambor
 almacen_stock,1340,bolsas,"Huila, Colombia"
 ```
 
-Una fila por dato. Las claves empiezan por su zona. Las series van con punto y coma (`200;121;98;117`). Las cifras de los ejemplos son inventadas; las copias originales están en `datos/ejemplos/`.
+Una fila por dato. Las claves empiezan por su zona. Las series van con punto y coma (`200;121;98;117`). También acepta el `;` como separador de Excel en español. Las cifras de los ejemplos son inventadas.
 
 ## Cómo está hecho
 
 | Carpeta | Qué hay |
 | --- | --- |
-| `src/piezas/` | Formas, personas, árboles, furgonetas, cajas que circulan, colores y el reloj del mundo. Lo reutilizable |
-| `src/tablero/` | Cámara, tarjetas flotantes, paneles, gráficas y lectura del CSV |
-| `src/mundos/` | Cada negocio. `tostadora/` y `tienda/` son los ejemplos |
-| `skills/tablero-3d/` | La skill para Claude Code y sus referencias |
-| `datos/` | El CSV que lee el tablero |
+| `SKILL.md`, `referencias/` | La skill y lo que consulta mientras trabaja |
+| `scripts/crear.mjs` | Crea un proyecto nuevo a partir de la plantilla y un ejemplo |
+| `plantilla/` | El tablero: cámara, tarjetas, paneles, gráficas, lectura del CSV y piezas 3D reutilizables |
+| `ejemplos/` | Cada negocio de ejemplo, con su mundo y su CSV |
 
 Hecho con [Three.js](https://threejs.org/) y [React Three Fiber](https://r3f.docs.pmnd.rs/), servido con [Vite](https://vite.dev/). Todo se dibuja con código, sin modelos 3D.
 
@@ -87,4 +79,4 @@ Hecho por [Annder Rey](https://annderrey.com) · [@annderrey](https://instagram.
 
 ### English
 
-**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. Includes two examples (a coffee roastery and an online shop) and a Claude Code skill that interviews you about your business and builds your own world. `npm install && npm run dev` to try it. MIT licensed. The code and docs are in Spanish.
+**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. It is a Claude Code skill: install it with `npx skills add annderson8/tablero-3d -g -a claude-code`, then run `/tablero-3d your-data.csv` to build your own world. Includes two examples (a coffee roastery and an online shop). MIT licensed. The code and docs are in Spanish.
