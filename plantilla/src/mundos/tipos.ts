@@ -34,6 +34,8 @@ export type MundoTablero = {
   nombres: Record<string, string>;
   /** Centro del plano general. */
   encuadre: V3;
+  /** Tamaño del plano general (1 por defecto). Bájalo, p. ej. a 0.9, si la maqueta no cabe a lo alto. */
+  escala?: number;
   /** Segundo del mundo con el que arranca (para que todo esté ya en marcha). */
   arranque: number;
   /** Las piezas 3D. `paradaDesde(id)` dice desde qué segundo está parada una zona, para congelarla. */

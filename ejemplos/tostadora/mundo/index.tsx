@@ -108,7 +108,8 @@ const Panel_almacen: MundoTablero["zonas"][number]["Panel"] = ({ d, historia }) 
 export const tostadora: MundoTablero = {
   titulo: "Tostadora",
   acento: "Planta 1",
-  encuadre: [-0.6, 1.4, -1.8],
+  encuadre: [-0.6, 3, -1.8],
+  escala: 0.85,
   arranque: 22,
   zonas: [
     {

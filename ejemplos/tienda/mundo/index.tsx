@@ -9,7 +9,8 @@ import { Almacen, Devoluciones, Entorno, Preparacion, Reparto } from "./piezas";
 export const tienda: MundoTablero = {
   titulo: "Cerámica",
   acento: "tienda online",
-  encuadre: [-1, 1.2, -1.5],
+  encuadre: [-1, 2, -1.5],
+  escala: 0.9,
   arranque: 10,
   zonas: [
     {

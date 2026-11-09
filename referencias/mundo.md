@@ -18,6 +18,7 @@
 - `ancla` → el punto del que sale la línea de la tarjeta, encima de la zona (en lo alto de la máquina principal).
 - `tecla` → "1" a "9", en el orden del recorrido.
 - `encuadre` del mundo → el centro del plano general (más o menos el centro de la losa, algo elevado).
+- `escala` (opcional) → tamaño del plano general. Si lo alto de la maqueta queda cortado o debajo del aviso de controles, bájala a 0.9 y sube la `y` de `encuadre` (cada unidad baja la escena).
 - `arranque` → segundo del mundo con el que se abre. Si las piezas usan `<Entra en={…}>` para caer al principio, pon un valor mayor que el último `en` para que todo esté ya montado.
 
 ## Movimiento

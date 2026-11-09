@@ -108,7 +108,8 @@ const Llamadas: React.FC<{
   const ladoDe = (id: Id) => (columnas.izq.some((e) => e.id === id) ? "izq" : "der");
   ladoRef.current = ladoDe;
   const columna = (lado: "izq" | "der") => columnas[lado];
-  const huecoY = (i: number, n: number) => 120 + ((alto - 280) / Math.max(1, n - 1)) * i;
+  // La columna derecha termina antes: abajo está el registro de actividad.
+  const huecoY = (i: number, n: number, lado: "izq" | "der") => 120 + ((alto - (lado === "der" ? 370 : 280)) / Math.max(1, n - 1)) * i;
 
   return (
     <>
@@ -145,7 +146,7 @@ const Llamadas: React.FC<{
               style={{
                 ...tarjeta,
                 position: "absolute",
-                top: huecoY(i, arr.length),
+                top: huecoY(i, arr.length, lado),
                 [lado === "izq" ? "left" : "right"]: 20,
                 width: 196,
                 padding: "10px 14px",
@@ -204,7 +205,7 @@ export const App: React.FC = () => {
   const [verDatos, setVerDatos] = useState(false);
   const ahora = useReloj();
   const lienzo = useTam();
-  const base = Math.min(lienzo.w / 30, lienzo.h / 22);
+  const base = Math.min(lienzo.w / 30, lienzo.h / 22) * (MUNDO.escala ?? 1);
   const GENERAL: Vista = useMemo(() => ({ a: MUNDO.encuadre, az: 46, elev: 35, zoom: base }), [base]);
   const [vista, setVista] = useState<Vista>(GENERAL);
   const [seleccion, setSeleccion] = useState<Id | null>(null);

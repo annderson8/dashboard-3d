@@ -59,7 +59,7 @@ Reglas que evitan los fallos típicos:
 ## 5. Comprobar
 
 1. `npm run validar` y `npm run build`, los dos sin errores.
-2. `npm run dev` y abre la dirección que imprime. Comprueba: se ve la maqueta entera, cada zona se resalta al pasar el puntero, el clic abre su panel y las tarjetas apuntan a su zona.
+2. `npm run dev` y abre la dirección que imprime. Comprueba: se ve la maqueta entera (nada cortado arriba ni tapado por el aviso de controles; si pasa, ajusta `encuadre` y `escala`), cada zona se resalta al pasar el puntero, el clic abre su panel y las tarjetas apuntan a su zona.
 3. Abre el panel **Datos**, cambia una cifra y un `<zona>_estado` a `parada`: cambia la cifra al momento, la tarjeta marca PARADA, esa zona se congela y `datos/planta.csv` queda guardado. Deshaz el cambio al terminar.
 
 ## 6. Entregar
