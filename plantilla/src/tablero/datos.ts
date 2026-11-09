@@ -199,7 +199,7 @@ export const useDatos = (cada = 1500) => {
     const prev = anterior.current;
     const nuevos = prev
       ? diferencias(prev, filas, n)
-      : [{ clave: n.current++, hora: hora(), texto: `Datos cargados de planta.csv (${filas.length} filas)`, atencion: false }];
+      : [{ clave: n.current++, hora: hora(), texto: `Datos cargados (${filas.length} filas)`, atencion: false }];
     anterior.current = filas;
     if (nuevos.length) setEventos((ev) => [...nuevos.reverse(), ...ev].slice(0, 8));
   }, []);
@@ -283,7 +283,7 @@ export const useDatos = (cada = 1500) => {
 
   const descargar = useCallback(() => {
     const url = URL.createObjectURL(new Blob([escribirCsv(actuales.current, separador.current)], { type: "text/csv;charset=utf-8" }));
-    const a = Object.assign(document.createElement("a"), { href: url, download: "planta.csv" });
+    const a = Object.assign(document.createElement("a"), { href: url, download: "datos.csv" });
     a.click();
     URL.revokeObjectURL(url);
   }, []);

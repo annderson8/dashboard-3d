@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Crea un proyecto de tablero 3D en una carpeta nueva a partir de plantilla/ y de un ejemplo. Solo usa Node.
-// Uso: node crear.mjs <carpeta> [--ejemplo tienda|tostadora] [--sin-instalar]
+// Uso: node crear.mjs <carpeta> [--ejemplo tienda|gimnasio|tostadora] [--sin-instalar]
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -31,7 +31,7 @@ const bandera = (nombre) => {
 
 const ejemplo = opcion("--ejemplo") ?? "tienda";
 const sinInstalar = bandera("--sin-instalar");
-if (args.length !== 1 || args[0].startsWith("--")) fallar("uso: node crear.mjs <carpeta> [--ejemplo tienda|tostadora] [--sin-instalar]");
+if (args.length !== 1 || args[0].startsWith("--")) fallar("uso: node crear.mjs <carpeta> [--ejemplo tienda|gimnasio|tostadora] [--sin-instalar]");
 if (!EJEMPLOS.includes(ejemplo)) fallar(`no existe el ejemplo "${ejemplo}". Hay: ${EJEMPLOS.join(", ")}`);
 
 const destino = path.resolve(args[0]);

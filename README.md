@@ -2,7 +2,7 @@
 
 **Tu negocio como una maqueta 3D en la que haces clic en cada zona y ves sus números.** Los números salen de un CSV: lo editas, guardas y el tablero cambia solo. Si pones una zona en "parada", su máquina se detiene en el 3D.
 
-Es una skill para Claude Code: le pasas tus datos y te construye la maqueta. Trae dos ejemplos, una tostadora de café y una tienda online.
+Es una skill para Claude Code: le pasas tus datos y te construye la maqueta. Trae tres ejemplos: una tostadora de café, una tienda online y un gimnasio. Cada tablero puede llevar los colores, las tipografías y el logo de tu marca.
 
 ![Tablero 3D de una tostadora de café con sus tarjetas y el registro de actividad](docs/captura-general.png)
 
@@ -34,11 +34,13 @@ Luego puedes seguir pidiéndole cambios, también con `/tablero-3d`: *"usa los c
 
 ## Probar un ejemplo sin Claude
 
-![Tablero 3D de una tienda online con almacén, preparación, reparto y devoluciones](docs/captura-tienda.png)
+| Tienda online, con marca naranja | Gimnasio, con marca amarilla |
+| --- | --- |
+| ![Tablero 3D de una tienda online en naranja, con almacén, preparación, reparto y devoluciones](docs/captura-tienda.png) | ![Tablero 3D de un gimnasio en amarillo, con recepción, musculación, cardio, clases y piscina](docs/captura-gimnasio.png) |
 
 ```bash
 git clone https://github.com/annderson8/tablero-3d.git
-node tablero-3d/scripts/crear.mjs mi-tablero --ejemplo tienda   # o tostadora
+node tablero-3d/scripts/crear.mjs mi-tablero --ejemplo tienda   # o gimnasio, tostadora
 cd mi-tablero
 npm run dev
 ```
@@ -81,4 +83,4 @@ Hecho por [Annder Rey](https://annderrey.com) · [@annderrey](https://instagram.
 
 ### English
 
-**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. It is a Claude Code skill: install it with `npx skills add annderson8/tablero-3d -g -a claude-code`, then run `/tablero-3d your-data.csv` to build your own world. Includes two examples (a coffee roastery and an online shop). MIT licensed. The code and docs are in Spanish.
+**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. It is a Claude Code skill: install it with `npx skills add annderson8/tablero-3d -g -a claude-code`, then run `/tablero-3d your-data.csv` to build your own world. Includes three examples (a coffee roastery, an online shop and a gym), and each dashboard can use your brand colors, fonts and logo. MIT licensed. The code and docs are in Spanish.

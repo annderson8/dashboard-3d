@@ -88,14 +88,8 @@ if (fs.existsSync(path.join(proyecto, "marca.json"))) {
       const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
       return (x + 0.05) / (y + 0.05);
     };
-    const oscurecer = (c, t) => `#${rgb(c).map((v) => Math.round(v * (1 - t)).toString(16).padStart(2, "0")).join("").toUpperCase()}`;
     if (lum(m.fondo) < 0.6) errores.push(`marca.json: el fondo ${m.fondo} es oscuro. El tablero solo admite fondos claros`);
-    const minimo = Math.min(contraste(m.acento, m.fondo), contraste(m.acento, "#FFFFFF"));
-    if (minimo < 4.5) {
-      let t = 0;
-      while (t < 1 && Math.min(contraste(oscurecer(m.acento, t), m.fondo), contraste(oscurecer(m.acento, t), "#FFFFFF")) < 4.5) t += 0.01;
-      errores.push(`marca.json: el acento ${m.acento} no se lee bien sobre el fondo (contraste ${minimo.toFixed(1)}, mínimo 4.5). El tono más cercano que funciona es ${oscurecer(m.acento, t)}`);
-    }
+    if (contraste(m.acento, m.fondo) < 1.25) console.log(`Aviso: marca.json: el acento ${m.acento} casi no se distingue del fondo ${m.fondo}`);
     if (contraste(m.oscuro, m.fondo) < 7) errores.push(`marca.json: el color oscuro ${m.oscuro} no contrasta lo bastante con el fondo (${contraste(m.oscuro, m.fondo).toFixed(1)}, mínimo 7)`);
   }
   for (const k of ["titulos", "cuerpo", "datos"]) if (!m[k] || /[&"<>]/.test(m[k])) errores.push(`marca.json: la tipografía "${k}" no es válida`);

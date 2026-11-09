@@ -37,7 +37,7 @@ const useTam = () => {
 
 /** Estado de una estación: icono + texto, nunca solo color. Un único acento: "atención" va en Grafito. */
 const ESTILO_ESTADO: Record<Estado, { marca: string; fondo: string; tinta: string }> = {
-  "en marcha": { marca: "✓", fondo: color.textoSobreAcento, tinta: color.acento },
+  "en marcha": { marca: "✓", fondo: color.textoSobreAcento, tinta: color.acentoTexto },
   atención: { marca: "!", fondo: color.grafito, tinta: color.blanco },
   parada: { marca: "■", fondo: color.borde, tinta: color.grafito },
 };
@@ -120,7 +120,7 @@ const Llamadas: React.FC<{
             <g key={e.id}>
               <line
                 ref={(el) => void (lineas.current[e.id] = el)}
-                stroke={fuerte ? color.acento : color.piedra}
+                stroke={fuerte ? color.acentoTexto : color.piedra}
                 strokeWidth={fuerte ? 2 : 1.5}
                 strokeDasharray="2 5"
                 strokeLinecap="round"
@@ -156,7 +156,7 @@ const Llamadas: React.FC<{
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 7, ...mono(11) }}>
-                <Icono size={13} color={color.acento} strokeWidth={2.2} />
+                <Icono size={13} color={color.acentoTexto} strokeWidth={2.2} />
                 {e.nombre.toUpperCase()}
                 {d.estado(e.id) !== "en marcha" && (
                   <span
@@ -194,7 +194,7 @@ const Llamadas: React.FC<{
 };
 
 const EnVivo: React.FC = () => (
-  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, ...mono(11, color.acento), fontWeight: 500 }}>
+  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, ...mono(11, color.acentoTexto), fontWeight: 500 }}>
     <span style={{ width: 8, height: 8, borderRadius: 4, background: color.acento, boxShadow: `0 0 0 4px ${color.textoSobreAcento}` }} />
     EN VIVO
   </span>
@@ -264,10 +264,10 @@ export const App: React.FC = () => {
         <div style={{ display: "flex", alignItems: "baseline", gap: 14, minWidth: 0 }}>
           {logo && <img src={`./${logo}`} alt="" style={{ height: 28, display: "block" }} />}
           <span style={{ fontFamily: fuente.titulos, fontWeight: 800, fontSize: 24, letterSpacing: -0.5, whiteSpace: "nowrap" }}>
-            {MUNDO.titulo} <span style={{ color: color.acento }}>{MUNDO.acento}</span>
+            {MUNDO.titulo} <span style={{ color: color.acentoTexto }}>{MUNDO.acento}</span>
           </span>
           <span style={{ ...mono(11), whiteSpace: "nowrap" }}>
-            {error ? `⚠ ${error}` : leido ? `PLANTA.CSV · LEÍDO ${leido.toTimeString().slice(0, 8)}` : "LEYENDO PLANTA.CSV…"}
+            {error ? `⚠ ${error}` : leido ? `DATOS LEÍDOS ${leido.toTimeString().slice(0, 8)}` : "LEYENDO DATOS…"}
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
@@ -277,7 +277,7 @@ export const App: React.FC = () => {
               display: "inline-flex",
               alignItems: "center",
               gap: 7,
-              ...mono(12, verDatos ? color.blanco : color.grafito),
+              ...mono(12, verDatos ? color.sobreAcento : color.grafito),
               background: verDatos ? color.acento : color.blanco,
               border: `1px solid ${verDatos ? color.acento : color.borde}`,
               borderRadius: 10,
@@ -335,7 +335,7 @@ export const App: React.FC = () => {
                 key={e.nombre}
                 onClick={() => ir(e.id)}
                 style={{
-                  ...mono(12, activo ? color.blanco : color.grafito),
+                  ...mono(12, activo ? color.sobreAcento : color.grafito),
                   background: activo ? color.acento : color.blanco,
                   border: `1px solid ${activo ? color.acento : color.borde}`,
                   borderRadius: 10,
@@ -382,7 +382,7 @@ export const App: React.FC = () => {
             pointerEvents: "none",
           }}
         >
-          Arrastra para girar · rueda para acercar · clic en una estación
+          Arrastra para girar · rueda para acercar · clic en una zona
         </div>
 
         {sel && Icono && (
@@ -402,7 +402,7 @@ export const App: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <span style={{ width: 40, height: 40, borderRadius: 12, background: color.textoSobreAcento, display: "grid", placeItems: "center" }}>
-                  <Icono size={20} color={color.acento} strokeWidth={2.2} />
+                  <Icono size={20} color={color.acentoTexto} strokeWidth={2.2} />
                 </span>
                 <div>
                   <div style={{ fontFamily: fuente.titulos, fontWeight: 800, fontSize: 24, letterSpacing: -0.5 }}>{sel.nombre}</div>

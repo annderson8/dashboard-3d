@@ -41,6 +41,7 @@ Tienen forma de grano de café; para otro negocio copia la pieza y cambia la geo
 ## Ejemplos completos
 En `ejemplos/` de la skill:
 - `tienda/mundo/`: tienda online (almacén con estanterías, preparación, reparto y devoluciones) hecha solo con piezas del kit. El mejor punto de partida para un negocio que no fabrica nada.
+- `gimnasio/mundo/`: gimnasio con salas, máquinas, piscina y clases, y varias reglas de estado en su `datos.csv`. Buen modelo para un negocio de servicios con salas.
 - `tostadora/mundo/maquinas.tsx`: tostadora con tambor visible, bandeja de enfriado, empacadora.
 - `tostadora/mundo/bolsas.tsx`: línea de bolsas por estaciones y un brazo robot con cinemática inversa.
 - `tostadora/mundo/entorno.tsx`: losa, caminos, árboles, coches y almacén.

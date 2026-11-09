@@ -60,7 +60,7 @@ Usa las cifras reales tal como vienen. Si falta alguna, pon un valor plausible y
 
 ## 4. El mundo
 
-1. Crea `src/mundos/<negocio>/` copiando la estructura de un ejemplo de `DIR_SKILL/ejemplos/<ejemplo>/mundo/`: `tienda` (servicios, comercio, logística; usa solo piezas del kit) o `tostadora` (fabricación, con máquinas a medida):
+1. Crea `src/mundos/<negocio>/` copiando la estructura de un ejemplo de `DIR_SKILL/ejemplos/<ejemplo>/mundo/`: `tienda` (comercio, logística; usa solo piezas del kit), `gimnasio` (servicios con salas y reglas de estado) o `tostadora` (fabricación, con máquinas a medida):
    - `index.tsx` exporta un `MundoTablero` (tipo en `src/mundos/tipos.ts`): título, zonas, indicadores, historial, nombres y `Planta`.
    - Las piezas 3D de cada zona en archivos aparte (como `maquinas.tsx`).
 2. Construye cada zona con las piezas de `src/piezas/` (catálogo en `referencias/piezas.md`): formas, bandas, partículas y las comunes (personas, árboles, furgonetas, cajas que circulan). Nada de modelos externos. Que cada zona **haga algo**: una banda que corre, una máquina que gira, un vehículo que llega.

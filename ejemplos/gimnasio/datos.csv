@@ -1,0 +1,76 @@
+clave,valor,unidad,nota
+fecha_inicio,2026-10-10,,Primer día de los datos; eje de las gráficas diarias
+socios,140,socios,"Socios con alguna visita, 10/10–08/11/2026"
+cobrado_pct,84.4,%,Cuotas pagadas sobre el total del mes
+cobrado_eur,4697.9,€,Cuotas pagadas
+cuotas_total_eur,5566.0,€,Total de cuotas del mes
+visitas_dia,31.7,visitas,"Media diaria, 10/10–08/11/2026"
+hora_punta_pct,45.6,%,Entradas entre las 18:00 y las 21:00
+incidencias_total,43,fallos,"Cada fila con incidencia es un fallo, 10/10–08/11/2026"
+maquinas_afectadas,10,máquinas,Máquinas distintas con algún fallo
+recepcion_estado,en marcha,,en marcha | atención | parada (a mano)
+recepcion_regla,recepcion_sin_cobrar_eur > 500 : atención,,Más de 500 € por cobrar
+recepcion_regla,recepcion_socios_sin_venir > 10 : atención,,Más de 10 socios sin venir
+recepcion_regla,recepcion_sin_cobrar_eur > 1500 : parada,,Más de 1.500 € por cobrar
+recepcion_regla,recepcion_socios_sin_venir > 25 : parada,,Más de 25 socios sin venir
+recepcion_sin_cobrar_eur,868.1,€,Cuotas pendientes + devueltas
+recepcion_pendientes,15,socios,Pago pendiente
+recepcion_devueltos,4,socios,Pago devuelto
+recepcion_socios_sin_venir,13,socios,10 días o más sin venir a fecha 08/11/2026
+recepcion_socios_plan,80,socios,Básico
+recepcion_socios_plan,36,socios,Plus
+recepcion_socios_plan,24,socios,Premium
+musculacion_estado,en marcha,,en marcha | atención | parada (parada: solo a mano)
+musculacion_regla,musculacion_averias_7d >= 3 : atención,,3 averías o más en la última semana
+musculacion_visitas,349,visitas,10/10–08/11/2026
+musculacion_minutos,66.0,min,Duración media por visita
+musculacion_averias_30d,20,fallos,10/10–08/11/2026
+musculacion_averias_7d,3,fallos,02/11–08/11
+musculacion_maquinas_afectadas,3,máquinas,Máquinas distintas con algún fallo
+musculacion_maquinas_retirar,3,máquinas,Con 3 fallos o más en 30 días
+musculacion_fallos_maquina,8,fallos,Prensa 2
+musculacion_fallos_maquina,6,fallos,Banco 4
+musculacion_fallos_maquina,6,fallos,Polea alta
+musculacion_visitas_dia,6;5;20;21;16;15;14;12;8;8;12;15;12;13;8;4;10;16;10;9;16;9;7;13;14;17;16;8;7;8,visitas,"Una por día, 10/10–08/11/2026"
+cardio_estado,en marcha,,en marcha | atención | parada (parada: solo a mano)
+cardio_regla,cardio_averias_7d >= 3 : atención,,3 averías o más en la última semana
+cardio_visitas,245,visitas,10/10–08/11/2026
+cardio_minutos,40.6,min,Duración media por visita
+cardio_averias_30d,8,fallos,10/10–08/11/2026
+cardio_averias_7d,4,fallos,02/11–08/11
+cardio_maquinas_afectadas,3,máquinas,Máquinas distintas con algún fallo
+cardio_maquinas_retirar,2,máquinas,Con 3 fallos o más en 30 días
+cardio_fallos_maquina,4,fallos,Cinta 3
+cardio_fallos_maquina,3,fallos,Elíptica 1
+cardio_fallos_maquina,1,fallos,Remo 2
+cardio_visitas_dia,11;3;8;11;7;4;10;4;6;13;7;7;10;7;5;7;16;7;11;7;5;7;7;10;8;12;12;8;9;6,visitas,"Una por día, 10/10–08/11/2026"
+clases_estado,en marcha,,en marcha | atención | parada (parada: solo a mano)
+clases_regla,clases_averias_7d >= 3 : atención,,3 averías o más en la última semana
+clases_visitas,201,visitas,10/10–08/11/2026
+clases_minutos,51.9,min,Duración media por visita
+clases_averias_30d,6,fallos,10/10–08/11/2026
+clases_averias_7d,1,fallos,02/11–08/11
+clases_maquinas_afectadas,2,máquinas,Máquinas distintas con algún fallo
+clases_maquinas_retirar,1,máquinas,Con 3 fallos o más en 30 días
+clases_fallos_maquina,4,fallos,Equipo de sonido
+clases_fallos_maquina,2,fallos,Bici 7
+clases_visitas_dia,4;5;3;8;8;11;7;6;6;9;5;9;3;9;8;4;12;4;7;14;12;1;1;4;6;6;8;10;5;6,visitas,"Una por día, 10/10–08/11/2026"
+clases_asistencias,58,asistencias,Yoga
+clases_asistencias,50,asistencias,Spinning
+clases_asistencias,49,asistencias,Pilates
+clases_asistencias,44,asistencias,Funcional
+clases_entradas_hora,79;87;60;42;0;43;50;0;0;0;105;142;147;145;52,entradas,"Todo el club, de 07:00 a 21:00"
+piscina_estado,en marcha,,en marcha | atención | parada (parada: solo a mano)
+piscina_visitas,157,visitas,10/10–08/11/2026
+piscina_minutos,47.4,min,Duración media por visita
+piscina_averias_30d,9,fallos,10/10–08/11/2026
+piscina_averias_7d,2,fallos,02/11–08/11
+piscina_maquinas_afectadas,2,máquinas,Máquinas distintas con algún fallo
+piscina_fallos_maquina,5,fallos,Bomba de calor
+piscina_fallos_maquina,4,fallos,Clorador
+piscina_visitas_dia,3;7;11;4;8;8;8;4;3;6;7;3;7;7;2;6;5;6;6;4;7;1;4;4;4;7;5;5;0;5,visitas,"Una por día, 10/10–08/11/2026"
+piscina_regla,piscina_variacion_pct < -20 : atención,,Caída de más del 20 % semanal
+piscina_visitas_7d,30,visitas,02/11–08/11
+piscina_visitas_7d_previa,33,visitas,Semana anterior
+piscina_variacion_pct,-9.1,%,Última semana frente a la anterior
+piscina_visitas_semana,46;38;33;30,visitas,Últimas 4 semanas
