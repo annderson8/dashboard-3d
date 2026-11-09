@@ -22,7 +22,25 @@ Después, en Claude Code, desde la carpeta donde quieras crearlo:
 
 También vale un CSV, datos pegados en el chat o solo una descripción de tu negocio. Claude te pregunta lo que no pueda saber por tus datos, elige contigo qué números mirar, crea un proyecto nuevo y lo deja funcionando.
 
-Luego puedes seguir pidiéndole cambios, también con `/tablero-3d`: *"usa los colores de mi marca"*, *"pon este logo"*, *"avísame cuando haya más de 5 pedidos tarde"*.
+## Ajústalo después
+
+Abre Claude Code en la carpeta donde lo creaste y pide solo lo que quieras cambiar. No repite la entrevista ni toca el resto.
+
+```text
+/tablero-3d usa estos colores: acento #FFAD12, fondo #EFF1F0, tipografía Poppins
+```
+
+```text
+/tablero-3d pon este logo: logo.svg
+```
+
+```text
+/tablero-3d pon Reparto en atención si hay más de 5 pedidos tarde
+```
+
+```text
+/tablero-3d actualiza los datos con ventas-diciembre.xlsx
+```
 
 ## Cómo se usa el tablero
 
