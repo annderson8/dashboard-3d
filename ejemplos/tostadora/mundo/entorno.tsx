@@ -34,7 +34,7 @@ const Reparto: React.FC = () => {
   return (
     <group position={[x, 0, 13.6]} visible={k > 0}>
       <Caja s={[3.6, 2, 1.8]} p={[-0.7, 1.3, 0]} c={PAL.blanco} r={0.16} />
-      <Caja s={[3.62, 0.5, 1.82]} p={[-0.7, 0.95, 0]} c={PAL.esmeralda} r={0.04} />
+      <Caja s={[3.62, 0.5, 1.82]} p={[-0.7, 0.95, 0]} c={PAL.acento} r={0.04} />
       <Caja s={[1.4, 1.4, 1.74]} p={[1.6, 1.02, 0]} c={PAL.blanco} r={0.26} />
       <Caja s={[0.5, 0.6, 1.76]} p={[2.1, 1.4, 0]} c={PAL.grafito} r={0.1} />
       {[-1.6, 1.5].map((rx) => [-0.85, 0.85].map((rz) => <Cil key={`${rx}${rz}`} r={0.36} h={0.24} lados={18} p={[rx, 0.36, rz]} rot={[Math.PI / 2, 0, 0]} c={PAL.grafito} />))}
@@ -67,7 +67,7 @@ const Paneles: React.FC<{ origen: V3 }> = ({ origen }) => {
 const Almacen: React.FC = () => (
   <group>
     <Caja s={[8.6, 3.2, 5.6]} p={[-9.3, 1.6, 1.8]} c={PAL.blanco} r={0.18} />
-    <Caja s={[8.7, 0.3, 5.7]} p={[-9.3, 3.15, 1.8]} c={PAL.esmeralda} r={0.06} />
+    <Caja s={[8.7, 0.3, 5.7]} p={[-9.3, 3.15, 1.8]} c={PAL.acento} r={0.06} />
     <Paneles origen={[-11.3, 3.5, 0.6]} />
     {[-11.5, -9.3, -7.1].map((x) => (
       <Caja key={x} s={[1.5, 2, 0.08]} p={[x, 1, 4.62]} c={PAL.hueso} r={0.03} />
@@ -79,7 +79,7 @@ const Almacen: React.FC = () => (
 const Silo: React.FC<{ x: number; z: number; acento?: boolean }> = ({ x, z, acento }) => (
   <group position={[x, 0, z]}>
     <Cil r={1.05} h={4.4} p={[0, 2.8, 0]} c={PAL.blanco} />
-    <Cil r={0.02} r2={1.05} h={0.8} p={[0, 5.4, 0]} c={acento ? PAL.esmeralda : PAL.hueso} />
+    <Cil r={0.02} r2={1.05} h={0.8} p={[0, 5.4, 0]} c={acento ? PAL.acento : PAL.hueso} />
     <Cil r={1.05} r2={0.2} h={0.8} p={[0, 0.4, 0]} c={PAL.acero} />
   </group>
 );
@@ -94,8 +94,8 @@ export const Pin: React.FC<{ p: V3; en: number; sale: number }> = ({ p, en, sale
   if (oculto) return null;
   return (
     <group position={[p[0], p[1] + Math.sin(frac(t / 1.2) * 6.283) * 0.14, p[2]]} scale={e} visible={t > en && t < sale + 0.3}>
-      <Esfera r={0.42} p={[0, 0.72, 0]} c={PAL.esmeralda} rug={0.3} sombra={false} />
-      <Cil r={0.3} r2={0.02} h={0.62} lados={20} p={[0, 0.24, 0]} c={PAL.esmeralda} sombra={false} />
+      <Esfera r={0.42} p={[0, 0.72, 0]} c={PAL.acento} rug={0.3} sombra={false} />
+      <Cil r={0.3} r2={0.02} h={0.62} lados={20} p={[0, 0.24, 0]} c={PAL.acento} sombra={false} />
       <Esfera r={0.13} p={[0.26, 0.78, 0.26]} c={PAL.blanco} sombra={false} />
     </group>
   );
@@ -131,7 +131,7 @@ export const Entorno: React.FC = () => (
       <Silo x={-6.3} z={-12.6} />
       <Coche p={[-3.6, 0, 1.4]} c={PAL.blanco} giro={Math.PI / 2} />
       <Coche p={[-2, 0, 1.4]} c={PAL.grafito} giro={Math.PI / 2} />
-      <Coche p={[-0.4, 0, 1.4]} c={PAL.esmeralda} giro={Math.PI / 2} />
+      <Coche p={[-0.4, 0, 1.4]} c={PAL.acento} giro={Math.PI / 2} />
     </Entra>
     {ARBOLES.map(([x, z, e], i) => (
       <Entra key={i} en={1.75 + (i % 6) * 0.05}>

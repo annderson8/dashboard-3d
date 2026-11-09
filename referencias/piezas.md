@@ -12,7 +12,7 @@ Todas aceptan posición `p: [x, y, z]`, rotación `rot` (radianes) y color `c` (
 | `<Entra en={0.5}>…</Entra>` | `en`: segundo en que cae | Que la zona aparezca cayendo al arrancar |
 | `<Congela desde={…}>…</Congela>` | `desde`: segundo en que paró (o `undefined`) | Detener una zona en "parada" |
 
-Tonos: `PAL.grafito`, `PAL.grafitoSuave`, `PAL.piedra`, `PAL.acero`, `PAL.hueso`, `PAL.blanco`, `PAL.esmeralda`, `PAL.claro`, `PAL.menta`.
+Tonos: `PAL.grafito`, `PAL.grafitoSuave`, `PAL.piedra`, `PAL.acero`, `PAL.hueso`, `PAL.blanco`, `PAL.acento`, `PAL.claro`, `PAL.menta`.
 Material propio: `mat(color, rugosidad, { emisivo, brillo })`.
 
 ## Ayudas de tiempo (`base.tsx`)

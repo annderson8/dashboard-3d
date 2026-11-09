@@ -74,13 +74,29 @@ const aNumero = (texto: string) => {
 
 const avisadas = new Set<string>();
 
+const ORDEN: Estado[] = ["en marcha", "atención", "parada"];
+const peor = (a: Estado, b: Estado) => (ORDEN.indexOf(b) > ORDEN.indexOf(a) ? b : a);
+
+/** Una fila `<zona>_regla` dice cuándo cambia sola la zona: `reparto_tarde > 5 : atención`. A la derecha, una cifra u otra clave. */
+const REGLA = /^\s*([\w-]+)\s*(>=|<=|>|<|=)\s*([^:<>=]+?)\s*:\s*(atenci[oó]n|parada)\s*$/i;
+const COMPARA: Record<string, (a: number, b: number) => boolean> = {
+  ">": (a, b) => a > b,
+  ">=": (a, b) => a >= b,
+  "<": (a, b) => a < b,
+  "<=": (a, b) => a <= b,
+  "=": (a, b) => a === b,
+};
+
+const avisar = (texto: string) => {
+  if (avisadas.has(texto)) return;
+  avisadas.add(texto);
+  console.warn(`[tablero] ${texto}`);
+};
+
 export const crear = (filas: Fila[]): Datos => {
   const primera = (c: string) => {
     const f = filas.find((x) => x.clave === c);
-    if (!f && filas.length && !avisadas.has(c)) {
-      avisadas.add(c);
-      console.warn(`[tablero] La clave "${c}" no está en datos/planta.csv: se muestra vacía o como 0.`);
-    }
+    if (!f && filas.length) avisar(`La clave "${c}" no está en datos/planta.csv: se muestra vacía o como 0.`);
     return f;
   };
   return {
@@ -94,7 +110,22 @@ export const crear = (filas: Fila[]): Datos => {
     filas: (c) => filas.filter((f) => f.clave === c),
     estado: (id) => {
       const v = (primera(`${id}_estado`)?.valor ?? "").toLowerCase();
-      return v.startsWith("par") ? "parada" : v.startsWith("aten") ? "atención" : "en marcha";
+      const manual: Estado = v.startsWith("par") ? "parada" : v.startsWith("aten") ? "atención" : "en marcha";
+      // Manda lo más grave entre la fila escrita a mano y las reglas que se cumplan.
+      return filas.filter((f) => f.clave === `${id}_regla`).reduce<Estado>((total, f) => {
+        const r = f.valor.match(REGLA);
+        if (!r) {
+          avisar(`La regla "${f.valor}" no se entiende. Ejemplo: reparto_tarde > 5 : atención`);
+          return total;
+        }
+        const valorDe = (t: string) => (/^-?[\d.,]+$/.test(t) ? aNumero(t) : aNumero(filas.find((x) => x.clave === t)?.valor ?? ""));
+        const [a, b] = [valorDe(r[1]), valorDe(r[3])];
+        if (Number.isNaN(a) || Number.isNaN(b)) {
+          avisar(`La regla "${f.valor}" usa un dato vacío o que no existe, y se ignora.`);
+          return total;
+        }
+        return COMPARA[r[2]](a, b) ? peor(total, r[4].toLowerCase().startsWith("par") ? "parada" : "atención") : total;
+      }, manual);
     },
   };
 };
@@ -111,14 +142,16 @@ export const escribirCsv = (filas: Fila[], sep: Separador = ",") => {
 /** Qué cambió entre dos versiones del archivo, como eventos para el registro. */
 const diferencias = (prev: Fila[], filas: Fila[], n: { current: number }): Evento[] => {
   const nuevos: Evento[] = [];
+  // Se compara el estado final, así también se anota cuando lo cambia una regla.
+  const [antes, ahora] = [crear(prev), crear(filas)];
+  for (const z of MUNDO.zonas) {
+    const e = ahora.estado(z.id);
+    if (e !== antes.estado(z.id)) nuevos.push({ clave: n.current++, hora: hora(), texto: `${z.nombre} pasó a "${e}"`, atencion: e !== "en marcha" });
+  }
   for (const f of filas) {
     const p = prev.find((x) => x.clave === f.clave && x.nota === f.nota);
-    if (!p || p.valor === f.valor) continue;
-    const est = f.clave.match(/^(\w+)_estado$/);
-    if (est) {
-      const e = MUNDO.zonas.find((x) => x.id === est[1]);
-      nuevos.push({ clave: n.current++, hora: hora(), texto: `${e?.nombre ?? est[1]} pasó a "${f.valor}"`, atencion: f.valor.toLowerCase() !== "en marcha" });
-    } else if (f.nota && filas.filter((x) => x.clave === f.clave).length > 1) {
+    if (!p || p.valor === f.valor || /_estado$/.test(f.clave)) continue;
+    if (f.nota && filas.filter((x) => x.clave === f.clave).length > 1) {
       nuevos.push({
         clave: n.current++,
         hora: hora(),

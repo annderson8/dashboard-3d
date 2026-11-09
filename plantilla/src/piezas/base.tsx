@@ -14,18 +14,18 @@ export const Congela: React.FC<{ desde?: number; children: React.ReactNode }> = 
   return <RelojCtx.Provider value={desde === undefined ? reloj : () => reloj(desde)}>{children}</RelojCtx.Provider>;
 };
 
-// Primitivas de la planta. Todo sale de la paleta de marca: el acento es Esmeralda y es el color del café crudo.
+// Primitivas de la planta. Todo sale de la paleta de marca: el acento sale de marca.json.
 export const PAL = {
   grafito: color.grafito,
-  grafitoSuave: "#2C2F35",
+  grafitoSuave: color.grafitoSuave,
   piedra: color.piedra,
-  acero: "#C9CCD2",
-  hueso: "#E7E9EC",
+  acero: color.acero,
+  hueso: color.hueso,
   blanco: color.blanco,
   borde: color.borde,
-  esmeralda: color.esmeralda,
-  claro: color.esmeraldaClaro,
-  menta: color.textoSobreEsmeralda,
+  acento: color.acento,
+  claro: color.acentoClaro,
+  menta: color.textoSobreAcento,
 };
 
 export type V3 = [number, number, number];

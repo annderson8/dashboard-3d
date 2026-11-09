@@ -12,7 +12,7 @@ Convierte un negocio en una maqueta 3D clicable conectada a un CSV. El tablero (
 
 ## 1. Preparar el proyecto
 
-- Si la carpeta actual ya tiene `src/mundo.ts`, es un tablero existente: trabaja ahí. Antes de sobrescribir `datos/planta.csv`, cópialo a `datos/ejemplos/` si tiene datos del usuario.
+- Si la carpeta actual (o una subcarpeta como `mi-tablero/`) ya tiene `src/mundo.ts`, es un tablero existente: sigue la sección **Ajustar un tablero existente** de abajo.
 - Si no, créalo sin pedir que clone ni instale nada:
   ```bash
   node "DIR_SKILL/scripts/crear.mjs" mi-tablero --ejemplo tienda
@@ -21,11 +21,24 @@ Convierte un negocio en una maqueta 3D clicable conectada a un CSV. El tablero (
 
 Si falta Node.js 20 o más reciente, dilo y para.
 
+## Ajustar un tablero existente
+
+No repitas la entrevista. Identifica qué quiere cambiar y toca solo eso:
+
+| Pide | Qué hacer |
+| --- | --- |
+| Colores, tipografías, logo, "usa mi marca" | `referencias/marca.md` |
+| Cuándo una zona pasa a atención o parada | Filas `<zona>_regla` en `datos/planta.csv` (`referencias/csv.md`) |
+| Datos nuevos o un archivo actualizado | `referencias/importar.md`; conserva las mismas claves, reglas y umbrales |
+| Una zona, una tarjeta o una pieza 3D | Pasos 3 y 4, solo para esa parte |
+
+Antes de sobrescribir `datos/planta.csv`, cópialo a `datos/ejemplos/`. Si el proyecto no tiene `marca.json`, se creó con una versión anterior: cambia los colores en `src/piezas/tema.ts` y dilo. Al terminar haz `npm run validar` y `npm run build`, y mira el resultado en el navegador.
+
 ## 2. Entender el negocio
 
 **Si te pasaron datos** (al invocarte o durante la conversación), léelos primero siguiendo `referencias/importar.md` y propón a partir de ellos. No preguntes lo que los datos ya dicen.
 
-**Pregunta de una en una, y solo lo que siga sin saberse**, con ejemplos para que respondan fácil:
+**Pregunta solo lo que siga sin saberse**, en un único mensaje corto si son varias cosas, con ejemplos para que respondan fácil:
 
 1. Qué hace el negocio, en dos líneas.
 2. Por qué zonas pasa el trabajo, de principio a fin (de 3 a 6 zonas). Ejemplo: recepción → tostado → empaque → almacén.
@@ -35,9 +48,13 @@ Si falta Node.js 20 o más reciente, dilo y para.
 
 La 4 no se deduce de los datos: pregúntala siempre. Luego propón como máximo **un número principal por zona** y **cinco indicadores**, cada uno con la decisión que ayuda a tomar. Espera su visto bueno. Criterio completo en `referencias/criterio.md`.
 
+Después pregunta cuándo cada zona pasa a `atención` o `parada`: esos umbrales serán reglas automáticas.
+
 ## 3. El archivo
 
-Escribe en `datos/planta.csv` los datos del negocio con el formato de `referencias/csv.md`: columnas `clave,valor,unidad,nota`, claves con el prefijo de su zona (`reparto_pedidos_en_ruta`) y una fila `<zona>_estado` por zona.
+Escribe en `datos/planta.csv` los datos del negocio con el formato de `referencias/csv.md`: columnas `clave,valor,unidad,nota`, claves con el prefijo de su zona (`reparto_pedidos_en_ruta`) y una fila `<zona>_estado` por zona. Cada umbral que te den va como fila `<zona>_regla` (`referencias/csv.md`), para que la zona cambie sola.
+
+No dejes filas que el tablero no use: `npm run validar` las lista como aviso.
 
 Usa las cifras reales tal como vienen. Si falta alguna, pon un valor plausible y dile exactamente cuáles son inventadas.
 
@@ -48,20 +65,20 @@ Usa las cifras reales tal como vienen. Si falta alguna, pon un valor plausible y
    - Las piezas 3D de cada zona en archivos aparte (como `maquinas.tsx`).
 2. Construye cada zona con las piezas de `src/piezas/` (catálogo en `referencias/piezas.md`): formas, bandas, partículas y las comunes (personas, árboles, furgonetas, cajas que circulan). Nada de modelos externos. Que cada zona **haga algo**: una banda que corre, una máquina que gira, un vehículo que llega.
 3. Coloca las zonas siguiendo `referencias/mundo.md` (ejes, tamaños, cámara). Para cada zona define su caja de clic (`zona`) y el punto de su tarjeta (`ancla`).
-4. Cambia `src/mundo.ts` para que exporte el mundo nuevo y borra de `src/mundos/` el ejemplo con el que arrancó.
+4. Cambia `src/mundo.ts` para que exporte el mundo nuevo y borra el ejemplo con el que arrancó, en `src/mundos/` y en `datos/ejemplos/`.
 
 Reglas que evitan los fallos típicos:
 - **Todo se mueve con `useT()`** (segundo del mundo), nunca con estado propio ni con `useFrame` dentro de una pieza. Así funcionan "parada" (congelar) y el arranque.
 - **Envuelve cada zona en `<Congela desde={paradaDesde("<zona>")}>`** para que se detenga cuando su estado sea "parada".
 - **Todo número en pantalla sale del CSV** (`d.num`, `d.valor`, `d.serie`, `d.filas`). Nada inventado en el código. Escribe la clave literal (`d.num("almacen_stock")`) para que `npm run validar` la compruebe.
-- **Una paleta corta** en `src/piezas/tema.ts` y un solo color de acento.
+- **Colores siempre con `PAL`**, sin códigos sueltos salvo materiales reales (cartón, agua). La marca se cambia en `marca.json`.
 
 ## 5. Comprobar
 
 1. `npm run validar` y `npm run build`, los dos sin errores.
 2. `npm run dev` y abre la dirección que imprime. Comprueba: se ve la maqueta entera (nada cortado arriba ni tapado por el aviso de controles; si pasa, ajusta `encuadre` y `escala`), cada zona se resalta al pasar el puntero, el clic abre su panel y las tarjetas apuntan a su zona.
-3. Abre el panel **Datos**, cambia una cifra y un `<zona>_estado` a `parada`: cambia la cifra al momento, la tarjeta marca PARADA, esa zona se congela y `datos/planta.csv` queda guardado. Deshaz el cambio al terminar.
+3. Abre el panel **Datos**, cambia una cifra y un `<zona>_estado` a `parada`: cambia la cifra al momento, la tarjeta marca PARADA, esa zona se congela y `datos/planta.csv` queda guardado. Si hay reglas, cambia una cifra hasta cruzar su umbral y comprueba que la zona cambia sola. Deshaz los cambios al terminar.
 
 ## 6. Entregar
 
-Deja `npm run dev` corriendo y da la dirección. Di qué zonas y qué números quedaron (y por qué), en qué carpeta está, qué fila del CSV cambiar para probarlo y qué cifras son inventadas.
+Deja `npm run dev` corriendo y da la dirección. Di qué zonas, números y reglas quedaron (y por qué), en qué carpeta está, qué fila del CSV cambiar para probarlo y qué cifras son inventadas. Ofrece adaptarlo a su marca: colores, tipografías y logo.

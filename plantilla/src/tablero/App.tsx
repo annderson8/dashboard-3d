@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Table2, X } from "lucide-react";
-import { color, fuente } from "../piezas/tema";
+import { color, fuente, logo } from "../piezas/tema";
 import { RELOJ } from "../piezas/tiempo";
 import { ANCLAS, ESTADO, Escena, type PropsMundo, type Vista } from "./Escena";
 import { useDatos, type Datos, type Estado } from "./datos";
@@ -37,7 +37,7 @@ const useTam = () => {
 
 /** Estado de una estación: icono + texto, nunca solo color. Un único acento: "atención" va en Grafito. */
 const ESTILO_ESTADO: Record<Estado, { marca: string; fondo: string; tinta: string }> = {
-  "en marcha": { marca: "✓", fondo: color.textoSobreEsmeralda, tinta: color.esmeralda },
+  "en marcha": { marca: "✓", fondo: color.textoSobreAcento, tinta: color.acento },
   atención: { marca: "!", fondo: color.grafito, tinta: color.blanco },
   parada: { marca: "■", fondo: color.borde, tinta: color.grafito },
 };
@@ -120,13 +120,13 @@ const Llamadas: React.FC<{
             <g key={e.id}>
               <line
                 ref={(el) => void (lineas.current[e.id] = el)}
-                stroke={fuerte ? color.esmeralda : color.piedra}
+                stroke={fuerte ? color.acento : color.piedra}
                 strokeWidth={fuerte ? 2 : 1.5}
                 strokeDasharray="2 5"
                 strokeLinecap="round"
                 opacity={fuerte ? 1 : 0.55}
               />
-              <circle ref={(el) => void (puntos.current[e.id] = el)} r={fuerte ? 7 : 5} fill={color.esmeralda} stroke={color.blanco} strokeWidth={2.5} />
+              <circle ref={(el) => void (puntos.current[e.id] = el)} r={fuerte ? 7 : 5} fill={color.acento} stroke={color.blanco} strokeWidth={2.5} />
             </g>
           );
         })}
@@ -151,12 +151,12 @@ const Llamadas: React.FC<{
                 width: 196,
                 padding: "10px 14px",
                 cursor: "pointer",
-                borderColor: fuerte ? color.esmeralda : color.borde,
-                boxShadow: fuerte ? `0 0 0 2px ${color.esmeralda}` : "0 6px 20px rgba(28,30,34,0.06)",
+                borderColor: fuerte ? color.acento : color.borde,
+                boxShadow: fuerte ? `0 0 0 2px ${color.acento}` : "0 6px 20px rgba(28,30,34,0.06)",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 7, ...mono(11) }}>
-                <Icono size={13} color={color.esmeralda} strokeWidth={2.2} />
+                <Icono size={13} color={color.acento} strokeWidth={2.2} />
                 {e.nombre.toUpperCase()}
                 {d.estado(e.id) !== "en marcha" && (
                   <span
@@ -194,8 +194,8 @@ const Llamadas: React.FC<{
 };
 
 const EnVivo: React.FC = () => (
-  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, ...mono(11, color.esmeralda), fontWeight: 500 }}>
-    <span style={{ width: 8, height: 8, borderRadius: 4, background: color.esmeralda, boxShadow: `0 0 0 4px ${color.textoSobreEsmeralda}` }} />
+  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, ...mono(11, color.acento), fontWeight: 500 }}>
+    <span style={{ width: 8, height: 8, borderRadius: 4, background: color.acento, boxShadow: `0 0 0 4px ${color.textoSobreAcento}` }} />
     EN VIVO
   </span>
 );
@@ -262,8 +262,9 @@ export const App: React.FC = () => {
     <div style={{ height: "100vh", display: "grid", gridTemplateRows: "auto auto 1fr", background: color.niebla, color: color.grafito, overflow: "hidden" }}>
       <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "16px 24px 0" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 14, minWidth: 0 }}>
+          {logo && <img src={`./${logo}`} alt="" style={{ height: 28, display: "block" }} />}
           <span style={{ fontFamily: fuente.titulos, fontWeight: 800, fontSize: 24, letterSpacing: -0.5, whiteSpace: "nowrap" }}>
-            {MUNDO.titulo} <span style={{ color: color.esmeralda }}>{MUNDO.acento}</span>
+            {MUNDO.titulo} <span style={{ color: color.acento }}>{MUNDO.acento}</span>
           </span>
           <span style={{ ...mono(11), whiteSpace: "nowrap" }}>
             {error ? `⚠ ${error}` : leido ? `PLANTA.CSV · LEÍDO ${leido.toTimeString().slice(0, 8)}` : "LEYENDO PLANTA.CSV…"}
@@ -277,8 +278,8 @@ export const App: React.FC = () => {
               alignItems: "center",
               gap: 7,
               ...mono(12, verDatos ? color.blanco : color.grafito),
-              background: verDatos ? color.esmeralda : color.blanco,
-              border: `1px solid ${verDatos ? color.esmeralda : color.borde}`,
+              background: verDatos ? color.acento : color.blanco,
+              border: `1px solid ${verDatos ? color.acento : color.borde}`,
               borderRadius: 10,
               padding: "7px 12px",
               cursor: "pointer",
@@ -335,8 +336,8 @@ export const App: React.FC = () => {
                 onClick={() => ir(e.id)}
                 style={{
                   ...mono(12, activo ? color.blanco : color.grafito),
-                  background: activo ? color.esmeralda : color.blanco,
-                  border: `1px solid ${activo ? color.esmeralda : color.borde}`,
+                  background: activo ? color.acento : color.blanco,
+                  border: `1px solid ${activo ? color.acento : color.borde}`,
                   borderRadius: 10,
                   padding: "8px 12px",
                   cursor: "pointer",
@@ -400,8 +401,8 @@ export const App: React.FC = () => {
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <span style={{ width: 40, height: 40, borderRadius: 12, background: color.textoSobreEsmeralda, display: "grid", placeItems: "center" }}>
-                  <Icono size={20} color={color.esmeralda} strokeWidth={2.2} />
+                <span style={{ width: 40, height: 40, borderRadius: 12, background: color.textoSobreAcento, display: "grid", placeItems: "center" }}>
+                  <Icono size={20} color={color.acento} strokeWidth={2.2} />
                 </span>
                 <div>
                   <div style={{ fontFamily: fuente.titulos, fontWeight: 800, fontSize: 24, letterSpacing: -0.5 }}>{sel.nombre}</div>

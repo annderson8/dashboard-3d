@@ -46,7 +46,7 @@ export const Almacen: React.FC = () => {
         <meshStandardMaterial color="#C9A982" roughness={0.8} />
       </instancedMesh>
       <group position={[x, 0, -6.1]}>
-        <Caja s={[1.4, 0.5, 0.9]} p={[0, 0.45, 0]} c={PAL.esmeralda} r={0.12} />
+        <Caja s={[1.4, 0.5, 0.9]} p={[0, 0.45, 0]} c={PAL.acento} r={0.12} />
         <Caja s={[0.08, 1.6, 0.8]} p={[0.75, 1, 0]} c={PAL.grafito} r={0.02} />
         <Persona p={[-0.3, 0.6, 0]} c={PAL.blanco} giro={Math.PI / 2} />
       </group>
@@ -75,7 +75,7 @@ export const Reparto: React.FC = () => {
   return (
     <group>
       <Caja s={[5, 3.2, 4.4]} p={[9.6, 1.6, -2]} c={PAL.blanco} r={0.16} />
-      <Caja s={[5.06, 0.3, 4.46]} p={[9.6, 3.2, -2]} c={PAL.esmeralda} r={0.05} />
+      <Caja s={[5.06, 0.3, 4.46]} p={[9.6, 3.2, -2]} c={PAL.acento} r={0.05} />
       <Caja s={[0.08, 2, 2.4]} p={[7.06, 1, -2]} c={PAL.grafito} r={0.02} />
       {[0, 0.5].map((fase, i) => {
         const k = frac(t / 9 + fase);
@@ -98,7 +98,7 @@ export const Devoluciones: React.FC = () => {
       <Caja s={[6, 0.12, 4.6]} p={[-7, 0.06, 5]} c={PAL.hueso} r={0.03} />
       {[-9, -7, -5].map((x, i) => (
         <group key={x}>
-          <Cil r={0.8} r2={0.7} h={1.4} abierto p={[x, 0.7, 6.4]} c={i === 1 ? PAL.esmeralda : PAL.grafitoSuave} />
+          <Cil r={0.8} r2={0.7} h={1.4} abierto p={[x, 0.7, 6.4]} c={i === 1 ? PAL.acento : PAL.grafitoSuave} />
           <Caja s={[0.6, 0.5, 0.6]} p={[x, 1.35 + Math.sin(t * 1.5 + i) * 0.04, 6.4]} c="#C9A982" r={0.04} />
         </group>
       ))}

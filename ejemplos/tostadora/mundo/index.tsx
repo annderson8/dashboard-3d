@@ -85,7 +85,7 @@ const Panel_paletizado: MundoTablero["zonas"][number]["Panel"] = ({ d, historia 
       <Titulo texto={`Tarima en carga · ${n} de 18 bolsas`} />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 4 }}>
         {Array.from({ length: 18 }, (_, i) => (
-          <div key={i} style={{ height: 22, borderRadius: 4, background: i < n ? color.esmeralda : color.niebla }} />
+          <div key={i} style={{ height: 22, borderRadius: 4, background: i < n ? color.acento : color.niebla }} />
         ))}
       </div>
     </>

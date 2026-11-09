@@ -22,6 +22,8 @@ Después, en Claude Code, desde la carpeta donde quieras crearlo:
 
 También vale un CSV, datos pegados en el chat o solo una descripción de tu negocio. Claude te pregunta lo que no pueda saber por tus datos, elige contigo qué números mirar, crea un proyecto nuevo y lo deja funcionando.
 
+Luego puedes seguir pidiéndole cambios, también con `/tablero-3d`: *"usa los colores de mi marca"*, *"pon este logo"*, *"avísame cuando haya más de 5 pedidos tarde"*.
+
 ## Cómo se usa el tablero
 
 - **Arrastra** para girar, **rueda** para acercar, **clic** en una zona para ver su panel. Teclas numéricas para saltar entre zonas y `Esc` para volver.
@@ -52,7 +54,7 @@ tostado_temperatura,203,°C,Temperatura del tambor
 almacen_stock,1340,bolsas,"Huila, Colombia"
 ```
 
-Una fila por dato. Las claves empiezan por su zona. Las series van con punto y coma (`200;121;98;117`). También acepta el `;` como separador de Excel en español. Las cifras de los ejemplos son inventadas.
+Una fila por dato. Las claves empiezan por su zona. Las series van con punto y coma (`200;121;98;117`). Una fila `reparto_regla` con `reparto_tarde > 5 : atención` hace que la zona cambie sola. También acepta el `;` como separador de Excel en español. Las cifras de los ejemplos son inventadas.
 
 ## Cómo está hecho
 
@@ -60,7 +62,7 @@ Una fila por dato. Las claves empiezan por su zona. Las series van con punto y c
 | --- | --- |
 | `SKILL.md`, `referencias/` | La skill y lo que consulta mientras trabaja |
 | `scripts/crear.mjs` | Crea un proyecto nuevo a partir de la plantilla y un ejemplo |
-| `plantilla/` | El tablero: cámara, tarjetas, paneles, gráficas, lectura del CSV y piezas 3D reutilizables |
+| `plantilla/` | El tablero: cámara, tarjetas, paneles, gráficas, lectura del CSV, piezas 3D y `marca.json` con colores, tipografías y logo |
 | `ejemplos/` | Cada negocio de ejemplo, con su mundo y su CSV |
 
 Hecho con [Three.js](https://threejs.org/) y [React Three Fiber](https://r3f.docs.pmnd.rs/), servido con [Vite](https://vite.dev/). Todo se dibuja con código, sin modelos 3D.

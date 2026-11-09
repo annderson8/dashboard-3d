@@ -50,12 +50,12 @@ export const Linea: React.FC<Base & { valores: number[]; min?: number; max?: num
       ))}
       <text x={pad.l} y={alto - 4} style={mono}>{etiquetaX(0)}</text>
       <text x={ancho - pad.r} y={alto - 4} textAnchor="end" style={mono}>{etiquetaX(n - 1)}</text>
-      <path d={ruta} fill="none" stroke={color.esmeralda} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
-      <circle cx={x(ultimo)} cy={y(valores[ultimo])} r={4.5} fill={color.esmeralda} stroke={color.blanco} strokeWidth={2} />
+      <path d={ruta} fill="none" stroke={color.acento} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={x(ultimo)} cy={y(valores[ultimo])} r={4.5} fill={color.acento} stroke={color.blanco} strokeWidth={2} />
       {encima !== null && encima >= 0 && encima <= ultimo && (
         <>
           <line x1={x(encima)} x2={x(encima)} y1={pad.t} y2={alto - pad.b} stroke={color.piedra} strokeWidth={1} strokeDasharray="3 3" />
-          <circle cx={x(encima)} cy={y(valores[encima])} r={4.5} fill={color.esmeralda} stroke={color.blanco} strokeWidth={2} />
+          <circle cx={x(encima)} cy={y(valores[encima])} r={4.5} fill={color.acento} stroke={color.blanco} strokeWidth={2} />
           <Tooltip x={x(encima)} y={y(valores[encima])} titulo={etiquetaX(encima)} valor={formato(valores[encima])} ancho={ancho} />
         </>
       )}
@@ -87,7 +87,7 @@ export const Barras: React.FC<Base & { valores: number[]; ancho?: number }> = ({
         return (
           <g key={i} onPointerEnter={() => setEncima(i)}>
             <rect x={bx - 1} y={pad.t} width={banda} height={base - pad.t} fill="transparent" />
-            {h > 0 && <path d={`M${bx} ${base} V${top + r} Q${bx} ${top} ${bx + r} ${top} H${bx + w - r} Q${bx + w} ${top} ${bx + w} ${top + r} V${base} Z`} fill={color.esmeralda} opacity={encima === null || encima === i ? 1 : 0.45} />}
+            {h > 0 && <path d={`M${bx} ${base} V${top + r} Q${bx} ${top} ${bx + r} ${top} H${bx + w - r} Q${bx + w} ${top} ${bx + w} ${top + r} V${base} Z`} fill={color.acento} opacity={encima === null || encima === i ? 1 : 0.45} />}
             {(i === 0 || i === valores.length - 1) && <text x={bx + w / 2} y={alto - 4} textAnchor="middle" style={mono}>{etiquetaX(i)}</text>}
           </g>
         );
@@ -110,7 +110,7 @@ export const Ranking: React.FC<{ filas: { nombre: string; valor: number }[]; for
             <span style={{ color: color.grafito }}>{formato(f.valor)}</span>
           </div>
           <div style={{ height: 10, background: color.niebla, borderRadius: 5 }}>
-            <div style={{ width: `${(f.valor / hi) * 100}%`, height: "100%", background: color.esmeralda, borderRadius: 5 }} />
+            <div style={{ width: `${(f.valor / hi) * 100}%`, height: "100%", background: color.acento, borderRadius: 5 }} />
           </div>
         </div>
       ))}

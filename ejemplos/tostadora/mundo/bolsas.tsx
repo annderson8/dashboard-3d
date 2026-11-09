@@ -33,7 +33,7 @@ const Bolsa: React.FC<{ p: V3; lleno?: number; etiqueta?: boolean; sellada?: boo
       <Caja s={[0.2, sellada ? 0.2 : 0.14, 1.14]} p={[0, ALTO + 0.05, 0]} c={sellada ? PAL.piedra : PAL.grafitoSuave} r={0.05} />
       {etiqueta && (
         <>
-          <Caja s={[0.03, 0.78, 0.76]} p={[0.42, ALTO / 2, 0]} c={PAL.esmeralda} r={0.01} sombra={false} />
+          <Caja s={[0.03, 0.78, 0.76]} p={[0.42, ALTO / 2, 0]} c={PAL.acento} r={0.01} sombra={false} />
           <Esfera r={0.2} escala={[0.2, 1.3, 0.85]} p={[0.44, ALTO / 2 + 0.08, 0]} c={PAL.blanco} sombra={false} />
           <Caja s={[0.02, 0.05, 0.46]} p={[0.44, ALTO / 2 - 0.26, 0]} c={PAL.blanco} r={0.005} sombra={false} />
         </>
@@ -59,10 +59,10 @@ const Brazo: React.FC<{ punta: V3; cierra: number }> = ({ punta, cierra }) => {
       <Cil r={0.72} r2={0.86} h={0.4} p={[0, 0.2, 0]} c={PAL.grafito} />
       <Cil r={0.46} h={0.85} p={[0, 0.8, 0]} c={PAL.blanco} />
       <group position={[0, hombroY, 0]} rotation={[0, 0, a1]}>
-        <Cil r={0.32} h={0.62} rot={[Math.PI / 2, 0, 0]} c={PAL.esmeralda} />
+        <Cil r={0.32} h={0.62} rot={[Math.PI / 2, 0, 0]} c={PAL.acento} />
         <Caja s={[BRAZO, 0.36, 0.36]} p={[BRAZO / 2, 0, 0]} c={PAL.blanco} r={0.14} />
         <group position={[BRAZO, 0, 0]} rotation={[0, 0, a2 - a1]}>
-          <Cil r={0.26} h={0.52} rot={[Math.PI / 2, 0, 0]} c={PAL.esmeralda} />
+          <Cil r={0.26} h={0.52} rot={[Math.PI / 2, 0, 0]} c={PAL.acento} />
           <Caja s={[BRAZO, 0.27, 0.27]} p={[BRAZO / 2, 0, 0]} c={PAL.blanco} r={0.11} />
           <group position={[BRAZO, 0, 0]} rotation={[0, 0, -a2]}>
             <Cil r={0.14} h={0.34} p={[0, -0.17, 0]} c={PAL.grafito} />
@@ -142,11 +142,11 @@ export const LineaBolsas: React.FC = () => {
         ))}
         <Caja s={[2.7, 0.4, 0.7]} p={[X, 4.45, zPrensa]} c={PAL.grafito} r={0.1} />
         <Cil r={0.1} h={1.1} p={[X, 3.95 - golpe * 0.38, zPrensa]} c={PAL.acero} />
-        <Caja s={[1, 0.3, 1.34]} p={[X, 3.36 - golpe * 0.38, zPrensa]} c={PAL.esmeralda} r={0.07} />
+        <Caja s={[1, 0.3, 1.34]} p={[X, 3.36 - golpe * 0.38, zPrensa]} c={PAL.acento} r={0.07} />
         {/* etiquetadora */}
         <Caja s={[0.26, 2.5, 0.5]} p={[X + 1.2, 1.25, zEtiq]} c={PAL.blanco} r={0.08} />
         <Caja s={[0.5 + golpe * 0.34, 0.16, 0.16]} p={[X + 0.95 - golpe * 0.17, 1.95, zEtiq]} c={PAL.acero} r={0.05} />
-        <Caja s={[0.08, 0.84, 0.84]} p={[X + 0.5 + (1 - golpe) * 0.2, 1.95, zEtiq]} c={PAL.esmeralda} r={0.03} />
+        <Caja s={[0.08, 0.84, 0.84]} p={[X + 0.5 + (1 - golpe) * 0.2, 1.95, zEtiq]} c={PAL.acento} r={0.03} />
       </Entra>
       <Entra en={1.85}>
         <Caja s={[3.4, 0.3, 2.9]} p={[PALE[0], 0.15, PALE[2]]} c={PAL.acero} r={0.05} />

@@ -115,7 +115,7 @@ const Zona: React.FC<{ e: ZonaMundo; alSeleccionar: (id: Id) => void; alHover: (
       </mesh>
       <mesh ref={aro} visible={false} position={[e.zona.centro[0], 0.03, e.zona.centro[2]]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[radio - 0.16, radio, 72]} />
-        <meshBasicMaterial color={color.esmeralda} transparent opacity={0.5} toneMapped={false} />
+        <meshBasicMaterial color={color.acento} transparent opacity={0.5} toneMapped={false} />
       </mesh>
     </>
   );

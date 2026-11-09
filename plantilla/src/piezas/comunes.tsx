@@ -22,7 +22,7 @@ export const Arbol: React.FC<{ p: [number, number]; e?: number; tono?: string }>
 );
 
 /** Furgoneta de reparto mirando hacia +z. Muévela cambiando `p` con useT(). */
-export const Furgoneta: React.FC<{ p: V3; giro?: number; acento?: string }> = ({ p, giro = 0, acento = PAL.esmeralda }) => (
+export const Furgoneta: React.FC<{ p: V3; giro?: number; acento?: string }> = ({ p, giro = 0, acento = PAL.acento }) => (
   <group position={p} rotation={[0, giro, 0]}>
     <Caja s={[1.9, 1.9, 3.4]} p={[0, 1.25, 0]} c={PAL.blanco} r={0.18} />
     <Caja s={[1.92, 0.35, 3.42]} p={[0, 0.9, 0]} c={acento} r={0.04} />

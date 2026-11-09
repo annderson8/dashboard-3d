@@ -136,7 +136,7 @@ export const PanelDatos: React.FC<{
                 borderRadius: 8,
                 padding: "7px 9px",
                 background: color.blanco,
-                outlineColor: color.esmeralda,
+                outlineColor: color.acento,
               };
               return (
                 <div

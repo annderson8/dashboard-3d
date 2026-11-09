@@ -52,8 +52,33 @@ const datos = (archivo = "datos/planta.csv"): Plugin => ({
   },
 });
 
+/** Pone en index.html el fondo y las tipografías de marca.json. */
+const marca = (): Plugin => ({
+  name: "tablero-marca",
+  configureServer(server) {
+    // El fondo y las tipografías están en el HTML: al guardar la marca, se recarga la página entera.
+    const archivo = path.resolve("marca.json");
+    server.watcher.add(archivo);
+    server.watcher.on("change", (f) => {
+      if (path.resolve(f) === archivo) server.ws.send({ type: "full-reload" });
+    });
+  },
+  transformIndexHtml: {
+    order: "pre",
+    handler(html) {
+      const m = JSON.parse(fs.readFileSync(path.resolve("marca.json"), "utf8"));
+      const fuentes = [m.titulos, m.cuerpo, m.datos].map((f: string) => {
+        if (/[&"<>]/.test(f)) throw new Error(`marca.json: tipografía no válida: ${f}`);
+        return `family=${encodeURI(f.replace(/ /g, "+"))}`;
+      });
+      if (!/^#[0-9a-f]{6}$/i.test(m.fondo)) throw new Error(`marca.json: fondo no válido: ${m.fondo}`);
+      return html.replace("__FUENTES__", `https://fonts.googleapis.com/css2?${[...new Set(fuentes)].join("&")}&display=swap`).replace("__FONDO__", m.fondo);
+    },
+  },
+});
+
 export default defineConfig({
-  plugins: [react(), datos()],
+  plugins: [react(), datos(), marca()],
   // Three.js va en su propio archivo: cambia poco y el navegador lo guarda en caché.
   build: { rollupOptions: { output: { manualChunks: { three: ["three", "@react-three/fiber"] } } }, chunkSizeWarningLimit: 1000 },
 });

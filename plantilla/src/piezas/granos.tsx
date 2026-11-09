@@ -29,10 +29,10 @@ export const TOSTADO_HEX = "#4B2D1E";
 export const TOSTADO = new Color(TOSTADO_HEX);
 const materialDe = (tinte: Color) => (tinte === VERDE ? MATERIAL_CRUDO : MATERIAL);
 
-/** true = el error del primer intento: el grano crudo en esmeralda brillante, como lo pintó Claude. */
+/** true = el error del primer intento: el grano crudo en acento brillante, como lo pintó Claude. */
 export const BrillanteCtx = createContext(false);
-const ESMERALDA = new Color(PAL.claro);
-const useCrudo = (tinte: Color) => (useContext(BrillanteCtx) && tinte === VERDE ? ESMERALDA : tinte);
+const ACENTO_CLARO = new Color(PAL.claro);
+const useCrudo = (tinte: Color) => (useContext(BrillanteCtx) && tinte === VERDE ? ACENTO_CLARO : tinte);
 const useMaterial = (tinte: Color) => (useContext(BrillanteCtx) && tinte === VERDE ? MATERIAL : materialDe(tinte));
 const tono = new Color();
 const aux = new Object3D();

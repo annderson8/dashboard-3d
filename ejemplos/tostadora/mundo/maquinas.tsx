@@ -39,16 +39,16 @@ export const Camion: React.FC = () => {
       <group position={[-5.1, 0, 0]}>
         <Caja s={[1.8, 1.8, 2]} p={[-0.2, 1.75, 0]} c={PAL.blanco} r={0.28} />
         <Caja s={[0.5, 0.8, 1.84]} p={[-0.85, 2.05, 0]} c={PAL.grafito} r={0.1} />
-        <Caja s={[1.84, 0.16, 2.04]} p={[-0.2, 1.25, 0]} c={PAL.esmeralda} r={0.05} />
+        <Caja s={[1.84, 0.16, 2.04]} p={[-0.2, 1.25, 0]} c={PAL.acento} r={0.05} />
         <Caja s={[0.82, 0.6, 2.03]} p={[-0.32, 2.15, 0]} c={PAL.grafito} r={0.06} />
         <Caja s={[0.08, 1.2, 1.3]} p={[0.72, 1.8, 0]} c={PAL.grafitoSuave} r={0.03} />
       </group>
       <group position={[0, 0.98, 0]} rotation={[0, 0, -giro]}>
         <group position={[-1.95, 0.72, 0]}>
-          <Caja s={[3.9, 0.14, 2]} p={[0, -0.63, 0]} c={PAL.esmeralda} />
-          <Caja s={[3.9, 1.3, 0.12]} p={[0, 0, 0.98]} c={PAL.esmeralda} />
-          <Caja s={[3.9, 1.3, 0.12]} p={[0, 0, -0.98]} c={PAL.esmeralda} />
-          <Caja s={[0.12, 1.3, 2]} p={[-1.92, 0, 0]} c={PAL.esmeralda} />
+          <Caja s={[3.9, 0.14, 2]} p={[0, -0.63, 0]} c={PAL.acento} />
+          <Caja s={[3.9, 1.3, 0.12]} p={[0, 0, 0.98]} c={PAL.acento} />
+          <Caja s={[3.9, 1.3, 0.12]} p={[0, 0, -0.98]} c={PAL.acento} />
+          <Caja s={[0.12, 1.3, 2]} p={[-1.92, 0, 0]} c={PAL.acento} />
           <Monton n={260} centro={[0, 0.2, 0]} radio={[1.75, 0.65, 0.84]} nivel={Math.max(0.05, nivel)} tinte={VERDE} />
         </group>
       </group>
@@ -133,13 +133,13 @@ export const Tostadora: React.FC = () => {
         </mesh>
       ))}
       {/* franja y panel */}
-      <Caja s={[4.5, 0.12, 0.05]} p={[x, 0.62, FRENTE + 0.13]} c={PAL.esmeralda} r={0.02} />
+      <Caja s={[4.5, 0.12, 0.05]} p={[x, 0.62, FRENTE + 0.13]} c={PAL.acento} r={0.02} />
       <group position={[x + 2.34, 3.6, z - 0.2]}>
         <Caja s={[0.26, 2.1, 2.2]} c={PAL.blanco} r={0.08} />
         <Caja s={[0.04, 0.7, 1.7]} p={[0.14, 0.52, 0]} c={PAL.grafito} r={0.015} />
         <Caja s={[0.05, 0.42 * (0.08 + avance * 0.92), 1.46 * (0.08 + avance * 0.92)]} p={[0.16, 0.52, 0]} c={PAL.claro} r={0.01} sombra={false} />
         {[-0.5, 0, 0.5].map((dz) => (
-          <Cil key={dz} r={0.15} h={0.08} p={[0.16, -0.4, dz]} rot={[0, 0, Math.PI / 2]} c={PAL.esmeralda} />
+          <Cil key={dz} r={0.15} h={0.08} p={[0.16, -0.4, dz]} rot={[0, 0, Math.PI / 2]} c={PAL.acento} />
         ))}
       </group>
       {/* tolva superior y chimenea */}
@@ -170,7 +170,7 @@ export const Enfriado: React.FC = () => {
     <group>
       <Cil r={1.1} r2={1.4} h={1.1} p={[x, 0.55, z]} c={PAL.grafitoSuave} />
       <Cil r={2.72} h={0.5} abierto p={[x, 1.55, z]} c={PAL.blanco} />
-      <Cil r={2.86} h={0.1} abierto p={[x, 1.82, z]} c={PAL.esmeralda} />
+      <Cil r={2.86} h={0.1} abierto p={[x, 1.82, z]} c={PAL.acento} />
       <Cil r={2.7} h={0.1} p={[x, 1.33, z]} c={PAL.piedra} />
       <group position={[x, 1.68, z]} rotation={[0, giro, 0]}>
         <Cil r={0.3} h={0.5} c={PAL.acero} />
@@ -194,7 +194,7 @@ export const Empacadora: React.FC = () => {
   return (
     <group>
       <Caja s={[3.6, 5.9, 3.2]} p={[x, 2.95, z]} c={PAL.blanco} r={0.22} />
-      <Caja s={[3.64, 0.34, 3.24]} p={[x, 4.9, z]} c={PAL.esmeralda} r={0.05} />
+      <Caja s={[3.64, 0.34, 3.24]} p={[x, 4.9, z]} c={PAL.acento} r={0.05} />
       <Caja s={[1.8, 2.5, 0.06]} p={[x, 2.4, z + 1.6]} c={PAL.grafito} r={0.03} />
       <Cil r={1.35} r2={0.6} h={2} abierto p={[x, 7, z]} c={PAL.hueso} />
       <Cil r={1.42} h={0.14} abierto p={[x, 8, z]} c={PAL.acero} />
