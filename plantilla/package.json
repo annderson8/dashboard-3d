@@ -1,8 +1,8 @@
 {
-  "name": "tablero-3d",
+  "name": "dashboard-3d",
   "version": "0.1.0",
   "private": true,
-  "description": "Tu negocio como un tablero 3D interactivo que lee sus números de un CSV. Three.js + React Three Fiber, con la tostadora de café de ejemplo.",
+  "description": "Tu negocio como un dashboard 3D interactivo que lee sus números de un CSV. Three.js + React Three Fiber, con la tostadora de café de ejemplo.",
   "license": "MIT",
   "type": "module",
   "scripts": {

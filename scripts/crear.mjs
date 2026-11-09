@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Crea un proyecto de tablero 3D en una carpeta nueva a partir de plantilla/ y de un ejemplo. Solo usa Node.
+// Crea un proyecto de dashboard 3D en una carpeta nueva a partir de plantilla/ y de un ejemplo. Solo usa Node.
 // Uso: node crear.mjs <carpeta> [--ejemplo tienda|gimnasio|tostadora] [--sin-instalar]
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";

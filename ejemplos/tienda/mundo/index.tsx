@@ -1,4 +1,4 @@
-// Tienda online de cerámica: mundo de prueba hecho siguiendo la skill tablero-3d.
+// Tienda online de cerámica: mundo de prueba hecho siguiendo la skill dashboard-3d.
 import { PackageCheck, PackageOpen, Truck, Warehouse } from "lucide-react";
 import { Congela } from "../../piezas/base";
 import { Barras, Ranking } from "../../tablero/Grafica";
