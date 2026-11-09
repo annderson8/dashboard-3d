@@ -27,4 +27,4 @@
 - Muchos objetos iguales (cajas en una banda, personas, partículas) → `instancedMesh` y matrices calculadas en un `useLayoutEffect` que depende de `t`. Mira `Banda` y `Corriente` en `src/piezas/`.
 
 ## Comprobación rápida
-Abre el tablero y pulsa cada tecla: la cámara tiene que llegar a cada zona y la tarjeta apuntar a su máquina. Si una tarjeta apunta al aire, corrige su `ancla`.
+Abre el dashboard y pulsa cada tecla: la cámara tiene que llegar a cada zona y la tarjeta apuntar a su máquina. Si una tarjeta apunta al aire, corrige su `ancla`.

@@ -1,6 +1,6 @@
 # Elegir qué números mirar
 
-Un tablero bonito con los números equivocados no sirve. Este es el criterio que aplica la skill.
+Un dashboard bonito con los números equivocados no sirve. Este es el criterio que aplica la skill.
 
 ## La pregunta que filtra
 Para cada número: **"¿qué harías distinto si lo ves cambiar?"**. Si la respuesta es "nada", sobra.

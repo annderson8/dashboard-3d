@@ -1,6 +1,6 @@
 # Formato de datos/planta.csv
 
-Lo abre Excel, Numbers o Google Sheets (Archivo → Descargar → CSV). El tablero lo relee cada 1,5 s.
+Lo abre Excel, Numbers o Google Sheets (Archivo → Descargar → CSV). El dashboard lo relee cada 1,5 s.
 
 ```
 clave,valor,unidad,nota
@@ -15,7 +15,7 @@ almacen_stock,980,bolsas,"Cerrado, Brasil"
 | --- | --- |
 | `clave` | En minúsculas con guiones bajos. Empieza por el `id` de su zona (`tostado_…`). Los indicadores generales pueden no llevar prefijo |
 | `valor` | Número (punto o coma decimal), texto, o una serie separada por punto y coma |
-| `unidad` | Para leerlo (°C, kg, bolsas/min). El tablero no la usa para calcular |
+| `unidad` | Para leerlo (°C, kg, bolsas/min). El dashboard no la usa para calcular |
 | `nota` | Explicación para quien edita el archivo. En claves repetidas, el nombre de cada fila (p. ej. el origen del stock) |
 
 También acepta `;` como separador de columnas (el de Excel en español) si la cabecera lo usa: `clave;valor;unidad;nota`. El panel Datos guarda con el mismo separador que encontró.

@@ -1,23 +1,23 @@
-# tablero-3d
+# dashboard-3d
 
-**Tu negocio como una maqueta 3D en la que haces clic en cada zona y ves sus números.** Los números salen de un CSV: lo editas, guardas y el tablero cambia solo. Si pones una zona en "parada", su máquina se detiene en el 3D.
+**Tu negocio como una maqueta 3D en la que haces clic en cada zona y ves sus números.** Los números salen de un CSV: lo editas, guardas y el dashboard cambia solo. Si pones una zona en "parada", su máquina se detiene en el 3D.
 
-Es una skill para Claude Code: le pasas tus datos y te construye la maqueta. Trae tres ejemplos: una tostadora de café, una tienda online y un gimnasio. Cada tablero puede llevar los colores, las tipografías y el logo de tu marca.
+Es una skill para Claude Code: le pasas tus datos y te construye la maqueta. Trae tres ejemplos: una tostadora de café, una tienda online y un gimnasio. Cada dashboard puede llevar los colores, las tipografías y el logo de tu marca.
 
-![Tablero 3D de una tostadora de café con sus tarjetas y el registro de actividad](docs/captura-general.png)
+![Dashboard 3D de una tostadora de café con sus tarjetas y el registro de actividad](docs/captura-general.png)
 
 ## Empieza
 
 Necesitas [Node.js](https://nodejs.org/) 20 o más reciente y [Claude Code](https://claude.com/claude-code).
 
 ```bash
-npx skills add annderson8/tablero-3d -g -a claude-code
+npx skills add annderson8/dashboard-3d -g -a claude-code
 ```
 
 Después, en Claude Code, desde la carpeta donde quieras crearlo:
 
 ```text
-/tablero-3d ventas.xlsx
+/dashboard-3d ventas.xlsx
 ```
 
 También vale un CSV, datos pegados en el chat o solo una descripción de tu negocio. Claude te pregunta lo que no pueda saber por tus datos, elige contigo qué números mirar, crea un proyecto nuevo y lo deja funcionando.
@@ -27,26 +27,26 @@ También vale un CSV, datos pegados en el chat o solo una descripción de tu neg
 Abre Claude Code en la carpeta donde lo creaste y pide solo lo que quieras cambiar. No repite la entrevista ni toca el resto.
 
 ```text
-/tablero-3d usa estos colores: acento #FFAD12, fondo #EFF1F0, tipografía Poppins
+/dashboard-3d usa estos colores: acento #FFAD12, fondo #EFF1F0, tipografía Poppins
 ```
 
 ```text
-/tablero-3d pon este logo: logo.svg
+/dashboard-3d pon este logo: logo.svg
 ```
 
 ```text
-/tablero-3d pon Reparto en atención si hay más de 5 pedidos tarde
+/dashboard-3d pon Reparto en atención si hay más de 5 pedidos tarde
 ```
 
 ```text
-/tablero-3d actualiza los datos con ventas-diciembre.xlsx
+/dashboard-3d actualiza los datos con ventas-diciembre.xlsx
 ```
 
-## Cómo se usa el tablero
+## Cómo se usa el dashboard
 
 - **Arrastra** para girar, **rueda** para acercar, **clic** en una zona para ver su panel. Teclas numéricas para saltar entre zonas y `Esc` para volver.
-- Pulsa **Datos** (arriba a la derecha): verás todas las filas del CSV. Cambia una cifra o pon una zona en `parada` y el tablero responde al momento. El cambio se guarda en `datos/planta.csv`.
-- O edita `datos/planta.csv` en Excel, Numbers o VS Code y guarda: en un par de segundos el tablero lo recoge.
+- Pulsa **Datos** (arriba a la derecha): verás todas las filas del CSV. Cambia una cifra o pon una zona en `parada` y el dashboard responde al momento. El cambio se guarda en `datos/planta.csv`.
+- O edita `datos/planta.csv` en Excel, Numbers o VS Code y guarda: en un par de segundos el dashboard lo recoge.
 
 ![Panel Datos abierto: la temperatura cambiada a 188 °C y el tostado en parada, con el registro de actividad anotándolo](docs/captura-datos.png)
 
@@ -54,12 +54,12 @@ Abre Claude Code en la carpeta donde lo creaste y pide solo lo que quieras cambi
 
 | Tienda online, con marca naranja | Gimnasio, con marca amarilla |
 | --- | --- |
-| ![Tablero 3D de una tienda online en naranja, con almacén, preparación, reparto y devoluciones](docs/captura-tienda.png) | ![Tablero 3D de un gimnasio en amarillo, con recepción, musculación, cardio, clases y piscina](docs/captura-gimnasio.png) |
+| ![Dashboard 3D de una tienda online en naranja, con almacén, preparación, reparto y devoluciones](docs/captura-tienda.png) | ![Dashboard 3D de un gimnasio en amarillo, con recepción, musculación, cardio, clases y piscina](docs/captura-gimnasio.png) |
 
 ```bash
-git clone https://github.com/annderson8/tablero-3d.git
-node tablero-3d/scripts/crear.mjs mi-tablero --ejemplo tienda   # o gimnasio, tostadora
-cd mi-tablero
+git clone https://github.com/annderson8/dashboard-3d.git
+node dashboard-3d/scripts/crear.mjs my-dashboard --ejemplo tienda   # o gimnasio, tostadora
+cd my-dashboard
 npm run dev
 ```
 
@@ -82,7 +82,7 @@ Una fila por dato. Las claves empiezan por su zona. Las series van con punto y c
 | --- | --- |
 | `SKILL.md`, `referencias/` | La skill y lo que consulta mientras trabaja |
 | `scripts/crear.mjs` | Crea un proyecto nuevo a partir de la plantilla y un ejemplo |
-| `plantilla/` | El tablero: cámara, tarjetas, paneles, gráficas, lectura del CSV, piezas 3D y `marca.json` con colores, tipografías y logo |
+| `plantilla/` | El dashboard: cámara, tarjetas, paneles, gráficas, lectura del CSV, piezas 3D y `marca.json` con colores, tipografías y logo |
 | `ejemplos/` | Cada negocio de ejemplo, con su mundo y su CSV |
 
 Hecho con [Three.js](https://threejs.org/) y [React Three Fiber](https://r3f.docs.pmnd.rs/), servido con [Vite](https://vite.dev/). Todo se dibuja con código, sin modelos 3D.
@@ -101,4 +101,4 @@ Hecho por [Annder Rey](https://annderrey.com) · [@annderrey](https://instagram.
 
 ### English
 
-**tablero-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. It is a Claude Code skill: install it with `npx skills add annderson8/tablero-3d -g -a claude-code`, then run `/tablero-3d your-data.csv` to build your own world. Includes three examples (a coffee roastery, an online shop and a gym), and each dashboard can use your brand colors, fonts and logo. MIT licensed. The code and docs are in Spanish.
+**dashboard-3d** turns a business into a clickable isometric 3D model whose numbers come from a CSV file: edit it, save, and the dashboard updates; set a zone to `parada` (stopped) and its machine freezes. It is a Claude Code skill: install it with `npx skills add annderson8/dashboard-3d -g -a claude-code`, then run `/dashboard-3d your-data.csv` to build your own world. Includes three examples (a coffee roastery, an online shop and a gym), and each dashboard can use your brand colors, fonts and logo. MIT licensed. The code and docs are in Spanish.

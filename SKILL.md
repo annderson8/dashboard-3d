@@ -1,27 +1,27 @@
 ---
-name: tablero-3d
-description: Crea un tablero 3D interactivo de un negocio (una maqueta isométrica en la que haces clic en cada zona y ves sus números) a partir de sus datos (Excel, CSV o datos pegados) o de una entrevista. Se actualiza al guardar el CSV. Úsala cuando alguien pida "un dashboard 3D", "mi negocio en 3D", "un tablero de mi empresa", "convierte mis datos en un mundo 3D" o quiera adaptar uno de los ejemplos a su negocio.
+name: dashboard-3d
+description: Crea un dashboard 3D interactivo de un negocio (una maqueta isométrica en la que haces clic en cada zona y ves sus números) a partir de sus datos (Excel, CSV o datos pegados) o de una entrevista. Se actualiza al guardar el CSV. Úsala cuando alguien pida "un dashboard 3D", "mi negocio en 3D", "un tablero 3D", "un tablero de mi empresa", "un dashboard de mi empresa", "convierte mis datos en un mundo 3D" o quiera adaptar uno de los ejemplos a su negocio.
 argument-hint: "[archivo de datos o descripción del negocio]"
 ---
 
-# Tablero 3D
+# Dashboard 3D
 
-Convierte un negocio en una maqueta 3D clicable conectada a un CSV. El tablero (cámara, tarjetas, paneles, lectura del CSV) ya está hecho en `plantilla/`; tu trabajo es **el mundo**: las zonas, sus números y sus piezas 3D.
+Convierte un negocio en una maqueta 3D clicable conectada a un CSV. El dashboard (cámara, tarjetas, paneles, lectura del CSV) ya está hecho en `plantilla/`; tu trabajo es **el mundo**: las zonas, sus números y sus piezas 3D.
 
 `DIR_SKILL` es la carpeta donde está este `SKILL.md`. De ahí salen `scripts/`, `ejemplos/` y `referencias/`.
 
 ## 1. Preparar el proyecto
 
-- Si la carpeta actual (o una subcarpeta como `mi-tablero/`) ya tiene `src/mundo.ts`, es un tablero existente: sigue la sección **Ajustar un tablero existente** de abajo.
+- Si la carpeta actual (o una subcarpeta como `my-dashboard/`) ya tiene `src/mundo.ts`, es un dashboard existente: sigue la sección **Ajustar un dashboard existente** de abajo.
 - Si no, créalo sin pedir que clone ni instale nada:
   ```bash
-  node "DIR_SKILL/scripts/crear.mjs" mi-tablero --ejemplo tienda
+  node "DIR_SKILL/scripts/crear.mjs" my-dashboard --ejemplo tienda
   ```
-  Usa otro nombre si `mi-tablero` ya existe. Arranca con un ejemplo que funciona y luego lo reemplazas. `--ejemplo tostadora` encaja mejor con fabricación.
+  Usa otro nombre si `my-dashboard` ya existe. Arranca con un ejemplo que funciona y luego lo reemplazas. `--ejemplo tostadora` encaja mejor con fabricación.
 
 Si falta Node.js 20 o más reciente, dilo y para.
 
-## Ajustar un tablero existente
+## Ajustar un dashboard existente
 
 No repitas la entrevista. Identifica qué quiere cambiar y toca solo eso:
 
@@ -54,7 +54,7 @@ Después pregunta cuándo cada zona pasa a `atención` o `parada`: esos umbrales
 
 Escribe en `datos/planta.csv` los datos del negocio con el formato de `referencias/csv.md`: columnas `clave,valor,unidad,nota`, claves con el prefijo de su zona (`reparto_pedidos_en_ruta`) y una fila `<zona>_estado` por zona. Cada umbral que te den va como fila `<zona>_regla` (`referencias/csv.md`), para que la zona cambie sola.
 
-No dejes filas que el tablero no use: `npm run validar` las lista como aviso.
+No dejes filas que el dashboard no use: `npm run validar` las lista como aviso.
 
 Usa las cifras reales tal como vienen. Si falta alguna, pon un valor plausible y dile exactamente cuáles son inventadas.
 

@@ -4,7 +4,7 @@ Toda la apariencia sale de `marca.json`, en la raíz del proyecto. No edites `sr
 
 | Campo | Qué va |
 | --- | --- |
-| `acento` | El color exacto de la marca (`#E4572E`), también si es claro. Se usa tal cual en maqueta, gráficas y botones. Para el texto, el tablero calcula solo un tono legible |
+| `acento` | El color exacto de la marca (`#E4572E`), también si es claro. Se usa tal cual en maqueta, gráficas y botones. Para el texto, el dashboard calcula solo un tono legible |
 | `fondo` | El fondo claro de la página. Solo se admiten fondos claros |
 | `oscuro` | El color del texto y de las piezas oscuras. También tiñe los grises |
 | `logo` | Ruta dentro de `public/` (`marca/logo.svg`), o vacío. Se ve junto al título |
@@ -13,7 +13,7 @@ Toda la apariencia sale de `marca.json`, en la raíz del proyecto. No edites `sr
 Si te pasan una web, un logo o un manual de marca, saca de ahí los colores y las fuentes. Si la fuente no está en Google Fonts, propón la más parecida y dilo.
 
 ## Cómo aplicarla
-1. Cambia `marca.json`. Si hay logo, cópialo en `public/`. Con `npm run dev` en marcha, el tablero se actualiza solo.
+1. Cambia `marca.json`. Si hay logo, cópialo en `public/`. Con `npm run dev` en marcha, el dashboard se actualiza solo.
 2. `npm run validar`. Escribe en `acento` el color que te pidan, sin oscurecerlo tú.
 3. Mira el resultado en el navegador y pregunta qué ajustar. Cambia solo lo que te pida.
 
