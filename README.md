@@ -8,7 +8,7 @@ Es una skill para Claude Code: le pasas tus datos y te construye la maqueta. Tra
 
 ## Empieza
 
-Necesitas [Node.js](https://nodejs.org/) 20 o más reciente y [Claude Code](https://claude.com/claude-code).
+Necesitas [Node.js](https://nodejs.org/) 22.20 o más reciente y [Claude Code](https://claude.com/claude-code).
 
 ```bash
 npx skills add annderson8/dashboard-3d -g -a claude-code
